@@ -1,0 +1,7 @@
+#!/bin/sh
+
+CONTAINER="orademo"
+IMAGE="orademo"
+docker run -d --name $CONTAINER --shm-size=1g -p 1521:1521 $IMAGE
+echo "Wait for Oracle instance to be created before continuing with database loading."
+echo "Monitor creation with: docker logs -f $CONTAINER"

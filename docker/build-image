@@ -1,0 +1,4 @@
+#!/bin/sh
+
+IMAGE="orademo"
+docker build -t $IMAGE -f Dockerfile.oracle .
