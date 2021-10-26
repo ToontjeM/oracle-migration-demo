@@ -6,3 +6,4 @@
 .gitignore
 Dockerfile
 docker/**
+vagrant/**
