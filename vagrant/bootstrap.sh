@@ -27,6 +27,7 @@ local   replication     all                                  trust
 host    replication     all             0.0.0.0/0            trust
 host    replication     all             ::/0                 trust
 EOF
+systemctl enable edb-as-13
 systemctl start edb-as-13
 
 # Configure PEM
@@ -41,6 +42,7 @@ systemctl start edb-as-13
 		--type 1
 
 echo "You can now connect to PEM at https://127.0.0.1:8443/pem"
+systemctl enable httpd
 
 # LiveCompare
 curl https://techsupport.enterprisedb.com/api/repository/QGcOzwnsVlaKF5jQfYlIwq57kUbKVtAM/products/livecompare/release/13/rpm/volatile | bash
