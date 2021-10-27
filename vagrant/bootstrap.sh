@@ -7,7 +7,7 @@ dnf -y install https://yum.enterprisedb.com/edbrepos/edb-repo-latest.noarch.rpm
 sed -i "s@<username>:<password>@${1}:${2}@" /etc/yum.repos.d/edb.repo
 
 # Install EPEL repository
-dnf -y install epel-release dnf-plugin-config-manager
+dnf -y install oracle-epel-release-el8 dnf-plugin-config-manager
 
 # Disable the built-in PostgreSQL module:
 dnf -qy module disable postgresql
@@ -45,8 +45,7 @@ echo "You can now connect to PEM at https://127.0.0.1:8443/pem"
 # LiveCompare
 curl https://techsupport.enterprisedb.com/api/repository/QGcOzwnsVlaKF5jQfYlIwq57kUbKVtAM/products/livecompare/release/13/rpm/volatile | bash
 
-# TODO: Consider using Oracle Linux and thus having the Oracle repositories
-# readily available.
 # Oracle client packages:
-dnf -y install https://download.oracle.com/otn_software/linux/instantclient/213000/oracle-instantclient-basic-21.3.0.0.0-1.el8.x86_64.rpm
-dnf -y install https://download.oracle.com/otn_software/linux/instantclient/213000/oracle-instantclient-sqlplus-21.3.0.0.0-1.el8.x86_64.rpm
+dnf -y install oracle-instantclient-release-el8
+dnf -y install oracle-instantclient-jdbc oracle-instantclient-odbc \
+		oracle-instantclient-sqlplus
