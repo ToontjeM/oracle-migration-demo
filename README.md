@@ -47,7 +47,7 @@ The virtual machine can now be built from the command line with the following
 commands:
 
 1. cd vagrant
-2. vagrant --user <edb repo name> --pass <edb repo key>
+2. vagrant --user=<edb repo name> --pass=<edb repo key> up
 
 PEM is reachable at the following address
 [https://10.10.10.10:8443/pem/](https://10.10.10.10:8443/pem/).
