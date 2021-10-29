@@ -353,4 +353,14 @@ WHERE e.department_id = d.department_id
   AND j.job_id = e.job_id 
 WITH READ ONLY;
 
+CREATE OR REPLACE FORCE VIEW error_view
+  (country_id,
+   region_id,
+   bitandtest)
+AS SELECT
+  country_id,
+  region_id,
+  BITAND(10111, 10101) bitandtest
+FROM COUNTRIES;
+
 COMMIT;
