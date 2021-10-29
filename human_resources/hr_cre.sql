@@ -363,4 +363,24 @@ AS SELECT
   BITAND(10111, 10101) bitandtest
 FROM COUNTRIES;
 
+CREATE VIEW employees_view_level_four(
+      "Employee",
+      "Cycle",
+      "LEVEL",
+      "Path")
+AS
+SELECT last_name "Employee", CONNECT_BY_ISCYCLE "Cycle",
+   LEVEL, SYS_CONNECT_BY_PATH(last_name, '/') "Path"
+   FROM employees
+   WHERE level <= 3 AND department_id = 80
+   START WITH last_name = 'King'
+   CONNECT BY NOCYCLE PRIOR employee_id = manager_id AND LEVEL <= 4;
+
+CREATE VIEW employees_manager_id (
+employee_id, last_name, manager_id)
+AS
+SELECT employee_id, last_name, manager_id
+   FROM employees
+   CONNECT BY PRIOR employee_id = manager_id;
+
 COMMIT;
