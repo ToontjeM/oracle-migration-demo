@@ -1,6 +1,19 @@
 #!/bin/sh
 
 CONTAINER="orademo"
+MSG="DATABASE IS READY TO USE!"
+
+while [ 1 ]; do
+	docker logs $CONTAINER | grep -m 1 -q "$MSG"
+	if [ $? -ne 0 ]; then
+		echo -n "Oracle database is not ready to use... "
+		docker logs $CONTAINER | tail -n 1
+		sleep 3
+	else
+		break
+	fi
+done
+
 PW=`docker logs $CONTAINER | grep "ORACLE PASSWORD FOR SYS AND SYSTEM" | cut -d : -f 2 | xargs`
 docker exec -w /usr/local/db-sample-schemas $CONTAINER sqlplus \
 		system/${PW}@XEPDB1 @mksample $PW $PW hrpw oepw pmpw ixpw shpw bipw \
