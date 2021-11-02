@@ -4,6 +4,6 @@ RUN yum install -y perl
 
 # Prep the image with Oracle's sample schemas imported into this repository
 # from https://github.com/oracle/db-sample-schemas
-COPY . /usr/local/db-sample-schemas
+COPY oracle-sample-schemas /usr/local/db-sample-schemas
 WORKDIR /usr/local/db-sample-schemas
 RUN bash -c "perl -p -i.bak -e 's#__SUB__CWD__#'$(pwd)'#g' *.sql */*.sql */*.dat"
