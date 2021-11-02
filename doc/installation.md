@@ -10,17 +10,18 @@ component.
 Docker needs to be installed onto your local system for creating an Oracle
 instance.  The following steps are all done from the command line:
 
-1. The Oracle Express Edition docker image needs to be imported into Docker:
+1. [Create a free account with
+   Oracle](https://profile.oracle.com/myprofile/account/create-account.jspx).
+2. Authenticate with Oracle's docker registry on the command line (only needs
+   to be done once): `docker login container-registry.oracle.com`
+3. The Oracle Express Edition docker image needs to be imported into Docker:
    `docker pull container-registry.oracle.com/database/express:latest`
-2. Run the supplied script to create a custom Docker image for the demo:
+4. Run the supplied script to create a custom Docker image for the demo:
    `docker/build-image`
-3. Run the supplied script to create an Oracle instance in a container named
+5. Run the supplied script to create an Oracle instance in a container named
    `orademo` with: `docker/create-container`
-4. Create the Oracle sample schemas and load data with supplied script:
+6. Create the Oracle sample schemas and load data with supplied script:
    `docker/load-database`
-
-[Documentation specific to the Oracle Express Edition Docker
-image](https://container-registry.oracle.com/ords/f?p=113:4:132631864087453:::4:P4_REPOSITORY,AI_REPOSITORY,AI_REPOSITORY_NAME,P4_REPOSITORY_NAME,P4_EULA_ID,P4_BUSINESS_AREA_ID:803,803,Oracle%20Database%20Express%20Edition,Oracle%20Database%20Express%20Edition,1,0&cs=3iKyi01vsM8dsWJWh9OTtPTryjUwRLNVIeihbeRvjRUPREsVO7EvBByNVjAnaY4bHb1MuuRmUCzojRxXq2b8QTQ).
 
 ## VirtualBox & Vagrant
 
