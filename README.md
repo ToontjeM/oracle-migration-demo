@@ -19,3 +19,5 @@ Quick notes once the migration kit is prepared:
 * Connect to Oracle as sysdba on the command line: `docker/connect`
 * PEM is reachable at the following local address:
   [https://10.10.10.10:8443/pem/](https://10.10.10.10:8443/pem/).
+
+[Demo guide](doc/guide.md).
