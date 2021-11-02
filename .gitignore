@@ -1,3 +1,8 @@
 *.sw?
 tags
 vagrant/.vagrant
+
+# edb_ddl_extractor.sql
+vagrant/*.log
+vagrant/*.sql
+vagrant/on.lst
