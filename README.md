@@ -1,3 +1,5 @@
+# FOR EDB INTERNAL USE ONLY
+
 # Oracle Migration Demo
 
 This repository is a kit containing all of the information needed to perform a
@@ -17,8 +19,14 @@ In preparation of performing the demo, the demonstrator needs to:
 
 Quick notes once the migration kit is prepared:
 
-* Connect to Oracle as sysdba on the command line: `docker/connect`
+* Connect to Oracle as *sysdba* on the command line: `docker/connect`
 * PEM is reachable at the following local address:
   [https://10.10.10.10:8443/pem/](https://10.10.10.10:8443/pem/).
 
-[Demo guide](doc/guide.md).
+A [demo guide](doc/guide.md) is provided as one method for performing a demo.
+
+# Contact Information
+
+* Please [report any
+  issues](https://github.com/EnterpriseDB/oracle-migration-demo/issues) online.
+  (Requires a GitHub account that is a member of the EDB Organization.)
