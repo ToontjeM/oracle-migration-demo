@@ -9,10 +9,11 @@ In preparation of performing the demo, the demonstrator needs to:
 1. [Create an EDB account](https://www.enterprisedb.com/accounts/register) for
    logging into the EDB [Migration Portal](https://migration.enterprisedb.com)
    if you don't already have access.
-2. Set up an Oracle instance with a database to migration,
+2. Install software to provision systems for Oracle and EDB migration tools:
    [doc/installation.md](doc/installation.md)
-3. Set up a virtual machine with all of the EDB migration tools.
-4. Provision a BigAnimal cluster to be used as the migration destination.
+   1. Build an Oracle instance with a database to migration,
+   1. Build a virtual machine with all of the EDB migration tools.
+3. Provision a BigAnimal cluster to be used as the migration destination.
 
 Quick notes once the migration kit is prepared:
 
