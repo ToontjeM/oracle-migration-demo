@@ -92,8 +92,8 @@ the BigAnimal cluster that was previously created.
 1. Open a terminal to connect to the `edbdemo` virtual machine.
    1. cd vagrant
    2. vagrant ssh
-2. Edit the MTK properties file with elevated privileges (e.g. sudo)
-   `/usr/edb/migrationtoolkit/etc/toolkit.properties`
+2. Edit the MTK properties file with elevated privileges:
+   `sudo nano /usr/edb/migrationtoolkit/etc/toolkit.properties`
    1. Update `SRC_DB_URL`: jdbc:oracle:thin:@//172.17.0.2:1521/XEPDB1
    2. Update `SRC_DB_USER`: system
    3. Update `SRC_DB_PASSWORD`: c90c1b7f2eb71d9c
