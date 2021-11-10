@@ -1,9 +1,0 @@
-**/core
-**/*.sw?
-**/tags
-.dockerignore
-.git
-.gitignore
-Dockerfile
-docker/**
-vagrant/**

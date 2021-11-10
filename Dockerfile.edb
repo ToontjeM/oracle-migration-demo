@@ -1,0 +1,40 @@
+FROM oraclelinux:7
+
+# Install the repository configuration
+RUN yum -y install \
+		https://yum.enterprisedb.com/edbrepos/edb-repo-latest.noarch.rpm
+
+# Visit https://www.enterprisedb.com/user to get your username and password
+# TODO: Consider building images with BuildKit to handle passwords more
+# securely.
+ARG EDBUSERNAME
+ARG EDBPASSWORD
+RUN sed -i "s@<username>:<password>@${EDBUSERNAME}:${EDBPASSWORD}@" \
+		/etc/yum.repos.d/edb.repo
+
+# Install EPEL repository
+RUN yum -y install oracle-epel-release-el7 yum-plugin-config-manager
+
+# Install selected packages
+RUN yum -y install edb-migrationtoolkit edb-as13-edbplus edb-as13-server \
+		edb-pem emacs-nox ppas-xdb nano tar vim
+USER enterprisedb
+RUN /usr/edb/as13/bin/initdb --encoding=UTF-8 /var/lib/edb/as13/data
+USER root
+COPY docker/pg_hba.conf /var/lib/edb/as13/data/pg_hba.conf
+
+# LiveCompare
+RUN curl https://techsupport.enterprisedb.com/api/repository/QGcOzwnsVlaKF5jQfYlIwq57kUbKVtAM/products/livecompare/release/13/rpm/volatile | bash
+
+# Install Oracle client packages
+RUN yum -y install oracle-instantclient-release-el7
+RUN yum -y install oracle-instantclient-jdbc oracle-instantclient-odbc \
+        oracle-instantclient-sqlplus
+
+# Install Oracle JDBC driver
+ARG OJDBC=ojdbc8-full
+RUN curl -OL https://download.oracle.com/otn-pub/otn_software/jdbc/1815/${OJDBC}.tar.gz
+RUN tar xvf ${OJDBC}.tar.gz
+RUN (cd ${OJDBC} && mv *.jar /usr/edb/migrationtoolkit/lib)
+
+CMD ["/usr/sbin/init"]

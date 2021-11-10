@@ -1,4 +1,13 @@
 #!/bin/sh
 
-IMAGE="orademo"
-docker build -t $IMAGE -f Dockerfile.oracle .
+if [ $# -ne 2 ]; then
+	echo "usage: `basename $0` <EDB Repo Username> <EDB Repo Key>"
+	exit 1
+fi
+
+IMAGE_EDB="edbdemo"
+IMAGE_ORACLE="orademo"
+
+docker build -t $IMAGE_ORACLE -f Dockerfile.oracle .
+docker build --build-arg EDBUSERNAME=$1 --build-arg EDBPASSWORD=$2 \
+		-t $IMAGE_EDB -f Dockerfile.edb .

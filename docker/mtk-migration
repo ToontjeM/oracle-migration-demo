@@ -1,0 +1,5 @@
+#!/bin/sh
+
+CONTAINER_EDB="edbdemo"
+docker exec -it -u root $CONTAINER_EDB sh -c \
+		"/usr/edb/migrationtoolkit/bin/runMTK.sh -dataOnly HR"

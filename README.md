@@ -14,16 +14,22 @@ In preparation of performing the demo, the demonstrator needs to:
 2. Install software to provision systems for Oracle and EDB migration tools:
    [doc/installation.md](doc/installation.md)
    1. Build an Oracle instance with a database to migration,
-   1. Build a virtual machine with all of the EDB migration tools.
+   2. Build a virtual machine with all of the EDB migration tools.
 3. Provision a BigAnimal cluster to be used as the migration destination.
 
-Quick notes once the migration kit is prepared:
+A [demo guide](doc/guide.md) is provided as one method for performing a demo.
+
+## Quick Notes
+
+Once the migration kit is prepared:
 
 * Connect to Oracle as *sysdba* on the command line: `docker/connect`
-* PEM is reachable at the following local address:
-  [https://10.10.10.10:8443/pem/](https://10.10.10.10:8443/pem/).
 
-A [demo guide](doc/guide.md) is provided as one method for performing a demo.
+The installation scripts only need to be run once.  If you reboot your laptop,
+you may need to restart the Docker containers:
+
+* docker start orademo
+* docker start edbdemo
 
 # Contact Information
 

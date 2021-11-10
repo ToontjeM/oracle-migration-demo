@@ -1,0 +1,12 @@
+#!/bin/sh
+
+CONTAINER_EDB="edbdemo"
+
+if [ ! "x$1" = "x" ]; then
+	EDITOR=$1
+elif [ "x$EDITOR" = "x" ]; then
+	EDITOR="nano"
+fi
+
+docker exec -it -u root $CONTAINER_EDB $EDITOR \
+		/usr/edb/migrationtoolkit/etc/toolkit.properties
