@@ -41,7 +41,6 @@ systemctl start edb-as-13
 		--superpassword enterprisedb \
 		--type 1
 
-echo "You can now connect to PEM at https://127.0.0.1:8443/pem"
 systemctl enable httpd
 
 # LiveCompare
@@ -51,3 +50,9 @@ curl https://techsupport.enterprisedb.com/api/repository/QGcOzwnsVlaKF5jQfYlIwq5
 dnf -y install oracle-instantclient-release-el8
 dnf -y install oracle-instantclient-jdbc oracle-instantclient-odbc \
 		oracle-instantclient-sqlplus
+
+# Oracle JDBC driver:
+OJDBC="ojdbc8-full"
+curl -OL https://download.oracle.com/otn-pub/otn_software/jdbc/1815/${OJDBC}.tar.gz
+tar xvf ${OJDBC}.tar.gz
+(cd ${OJDBC} && mv *.jar /usr/edb/migrationtoolkit/lib)
