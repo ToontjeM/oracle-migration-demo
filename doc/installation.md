@@ -41,4 +41,4 @@ The virtual machine can now be built from the command line with the following
 commands:
 
 1. cd vagrant
-2. vagrant --user=\<edb repo name\> --pass=\<edb repo key\> up
+2. vagrant --user=\<edb repo name\> --key=\<edb repo key\> up
