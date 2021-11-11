@@ -33,44 +33,41 @@ The connection information from the BigAnimal clusters:
 ### Demonstration
 
 1. Log into the EDB [Migration Portal](https://migration.enterprisedb.com).
-2. Download the EDB DDL Extractor and save the file in the `vagrant/`
-   subdirectory.  The `vagrant/` is a shared directory with the VM, where the
-   DDL Extractor will be executed from.  A directory link to the DDL Extractor
-   cannot be provided at this time.
-3. Run the EDB DDL Extractor:  
+2. Download the EDB DDL Extractor.  A direct link to the DDL Extractor cannot
+   be provided at this time.
+3. Copy the DDL Extractor to the **edbdemo** container:
+   `cp docker cp edb_ddl_extractor.sql edbdemo:/root`
+4. Run the EDB DDL Extractor:  
    1. Open a command line terminal, starting at the top of the
       *oracle-migration-demo* directory.
-   2. Connect to the **edbdemo** virtual machine:  
-      `cd vagrant`  
-      `vagrant ssh`
-   3. Execute the EDB DDL Extractor script, using the IP Address and Oracle
-      database password extracted at the top of this section:  
-      `cd vagrant`  
-      `[vagrant@localhost ~]$ cd /vagrant`  
-      `[vagrant@localhost ~]$ sqlplus sys/c90c1b7f2eb71d9c@//172.17.0.2:1521/XEPDB1 as sysdba`  
-      `SQL> @edb_ddl_extractor.sql`
-   4. Press `RETURN` at the first prompt to continue:  
+   2. Execute the EDB DDL Extractor script by running the supplied helper
+      script: `docker/extract-ddl`
+   3. Press `RETURN` at the first prompt to continue:  
       `Press RETURN to continue ...`  
-   5. Enter `HR` to only extract the `HR` database (multiple databases are
+   4. Enter `HR` to only extract the `HR` database (multiple databases are
       installed:  
       `Enter a comma-separated list of schemas, max up to 240 characters
       (Default all schemas): HR`  
-   6. Press `RETURN` at next prompt to use the current location:  
+   5. Press `RETURN` at next prompt to use the current location:  
       `Location for output file (Default current location) : `  
-   7. Enter `yes` at next prompt to extract any objects from other schemas:  
+   6. Enter `yes` at next prompt to extract any objects from other schemas:  
       `Extract dependent object from other schemas?(yes/no) (Default no /
       Ignored for all schemas option):yes`  
-4. Back in the Migration Portal, create a new project.
+5. Copy the extracted DDL out of the container.
+   1. Near the end of the DDL Extractor out will be a message with the
+      filename: `We have stored DDL(s) for Schema(s)  HR to
+      _gen_hr_ddls_211111213244.sql.`
+   2. Run: `docker cp edbdemo:/root/_gen_hr_ddls_211111213244.sql .`
+6. Back in the Migration Portal, create a new project
    1. Enter a new project name.
    2. The Oracle version used in this kit is 18c.
-   3. The DDL file to choose was created in the last step and will be in the
-      `vagrant/`.  The file name will resember something like
-      `_gen_hr_ddls_YYMMDDHHMMSS.sql`
+   3. The DDL file to choose is the one just copied from the container:
+      `_gen_hr_ddls_211111213244.sql`
    4. Click **Create & assess**.
-5. Demonstrate how to correct the reported errors.
+7. Demonstrate how to correct the reported errors.
    1. TBD
-6. Create the target database on BigAnimal.
-7. Migrate the schema to BigAnimal.
+8. Create the target database on BigAnimal.
+9. Migrate the schema to BigAnimal.
    1. Click on `Migrate to ...`
    2. Select `EDB Postgres Advanced Server on Cloud` and click `Next`.
    3. The `HR` should be selected, and the only schema listed.  Click `Next`.
