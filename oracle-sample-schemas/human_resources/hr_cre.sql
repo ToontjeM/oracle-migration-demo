@@ -383,4 +383,20 @@ SELECT employee_id, last_name, manager_id
    FROM employees
    CONNECT BY PRIOR employee_id = manager_id;
 
+CREATE VIEW employees_department_outer_join
+(first_name, last_anme, department_name)
+AS
+  SELECT first_name,
+         last_name,
+         department_name
+  FROM   hr.employees e,
+         hr.departments d
+  WHERE  e.department_id (+) = d.department_id;
+
+CREATE TABLE countries
+  (
+     name  VARCHAR2(90),
+     notes CLOB
+  );
+
 COMMIT;

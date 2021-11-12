@@ -2374,5 +2374,22 @@ REM enable integrity constraint to DEPARTMENTS
 ALTER TABLE departments 
   ENABLE CONSTRAINT dept_mgr_fk;
 
+REM insert data in COUNTRIES table
+
+INSERT INTO countries
+VALUES      ('Greece',
+'Greece is a country in south-east Europe. Athens is the capital...');
+
+INSERT INTO countries
+VALUES      ('Monaco',
+'Monaco is a sovereign city state, located on the French Riviera...');
+
+INSERT INTO countries
+VALUES      ('United Kingdom',
+             Empty_clob());
+
+INSERT INTO countries
+VALUES      ('United Kingdom',
+             NULL);
 COMMIT;
 
