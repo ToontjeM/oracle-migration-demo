@@ -25,6 +25,8 @@ COPY docker/pg_hba.conf /var/lib/edb/as13/data/pg_hba.conf
 
 # LiveCompare
 RUN curl https://techsupport.enterprisedb.com/api/repository/QGcOzwnsVlaKF5jQfYlIwq57kUbKVtAM/products/livecompare/release/13/rpm/volatile | bash
+RUN yum -y install 2ndq-livecompare
+RUN python3 -m pip install cx_Oracle --upgrade
 
 # Install Oracle client packages
 RUN yum -y install oracle-instantclient-release-el7

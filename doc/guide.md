@@ -97,3 +97,31 @@ the BigAnimal cluster that was previously created.
    6. Update `TARGET_DB_PASSWORD`:
 3. Run MTK to migrate the data from the Oracle database to BigAnimal:
    `docker/mtk-migrate` 
+
+## LiveCompare
+
+1. Create a `my_project.ini` file on your local system:  
+   ```
+   [General Settings]
+   logical_replication_mode = off
+   max_parallel_workers = 2
+   oracle_user_tables_only = on
+
+   [Oracle Connection]
+   technology = oracle
+   host = 172.17.0.2
+   port = 1521
+   service = XEPDB1
+   user = HR
+   password = hrpw
+
+   [Postgres Connection]
+   dsn = host=p-c659g7jh5vfavr7tfs60.qsbilba3hlgp1vqr.biganimal.io port=5432 dbname=edb_admin user=edb_admin sslmode=require
+
+   [Output Connection]
+   dsn = host=p-c659g7jh5vfavr7tfs60.qsbilba3hlgp1vqr.b   
+   ```
+2. Copy the ini files to the **edbdemo** container: `docker cp my_project.ini
+   edbdemo:/root`
+3. Run LiveCompare: `docker exec -u root -w /root edbdemo 2ndq-livecompare
+   my_project.ini`
