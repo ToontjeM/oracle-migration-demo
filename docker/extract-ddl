@@ -7,6 +7,5 @@ PW=`docker logs $CONTAINER_ORA | grep "ORACLE PASSWORD FOR SYS AND SYSTEM" | \
 IP=`docker inspect orademo | grep "\<IPAddress\>" | head -n 1 | \
 		cut -d ":" -f 2 | tr -d ' ",'`
 
-set -x
 docker exec -it -u root -w /root $CONTAINER_EDB sqlplus \
 		sys/${PW}@//${IP}:1521/XEPDB1 as sysdba @edb_ddl_extractor.sql
