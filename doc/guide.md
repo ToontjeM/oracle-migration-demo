@@ -35,33 +35,29 @@ The connection information from the BigAnimal clusters:
 1. Log into the EDB [Migration Portal](https://migration.enterprisedb.com).
 2. Download the EDB DDL Extractor.  A direct link to the DDL Extractor cannot
    be provided at this time.
-3. Copy the DDL Extractor to the **edbdemo** container:
-   `cp docker cp edb_ddl_extractor.sql edbdemo:/root`
-4. Run the EDB DDL Extractor:  
-   1. Open a command line terminal, starting at the top of the
-      *oracle-migration-demo* directory.
-   2. Execute the EDB DDL Extractor script by running the supplied helper
-      script: `docker/extract-ddl`
-   3. Press `RETURN` at the first prompt to continue:  
+3. Copy the DDL Extractor to the `docker/` subdirectory, which is mounted at
+   `/mnt` within the **edbdemo** container.
+4. Run the EDB DDL Extractor using the provided help script:
+   `docker/extract-ddl`
+   1. Press `RETURN` at the first prompt to continue:  
       `Press RETURN to continue ...`  
-   4. Enter `HR` to only extract the `HR` database (multiple databases are
+   2. Enter `HR` to only extract the `HR` database (multiple databases are
       installed:  
       `Enter a comma-separated list of schemas, max up to 240 characters
       (Default all schemas): HR`  
-   5. Press `RETURN` at next prompt to use the current location:  
+   3. Enter `/mnt/` (trailing slash is required) and press `RETURN` at next
+	  prompt so that the resulting DDL file will in the `docker/` directory:  
       `Location for output file (Default current location) : `  
-   6. Enter `yes` at next prompt to extract any objects from other schemas:  
+   4. Enter `yes` at next prompt to extract any objects from other schemas:  
       `Extract dependent object from other schemas?(yes/no) (Default no /
       Ignored for all schemas option):yes`  
-5. Copy the extracted DDL out of the container.
-   1. Near the end of the DDL Extractor out will be a message with the
-      filename: `We have stored DDL(s) for Schema(s)  HR to
-      _gen_hr_ddls_211111213244.sql.`
-   2. Run: `docker cp edbdemo:/root/_gen_hr_ddls_211111213244.sql .`
+5. Note the name of the resulting DDL file.  Near the end of the DDL Extractor
+   out will be a message with the filename: `We have stored DDL(s) for
+   Schema(s)  HR to _gen_hr_ddls_211111213244.sql.`
 6. Back in the Migration Portal, create a new project
    1. Enter a new project name.
    2. The Oracle version used in this kit is 18c.
-   3. The DDL file to choose is the one just copied from the container:
+   3. The DDL file to choose is the one just created from the container:
       `_gen_hr_ddls_211111213244.sql`
    4. Click **Create & assess**.
 7. Demonstrate how to correct the reported errors.
@@ -100,28 +96,7 @@ the BigAnimal cluster that was previously created.
 
 ## LiveCompare
 
-1. Create a `my_project.ini` file on your local system:  
-   ```
-   [General Settings]
-   logical_replication_mode = off
-   max_parallel_workers = 2
-   oracle_user_tables_only = on
-
-   [Oracle Connection]
-   technology = oracle
-   host = 172.17.0.2
-   port = 1521
-   service = XEPDB1
-   user = HR
-   password = hrpw
-
-   [Postgres Connection]
-   dsn = host=p-c659g7jh5vfavr7tfs60.qsbilba3hlgp1vqr.biganimal.io port=5432 dbname=edb_admin user=edb_admin sslmode=require
-
-   [Output Connection]
-   dsn = host=p-c659g7jh5vfavr7tfs60.qsbilba3hlgp1vqr.b   
-   ```
-2. Copy the ini files to the **edbdemo** container: `docker cp my_project.ini
-   edbdemo:/root`
-3. Run LiveCompare: `docker exec -u root -w /root edbdemo 2ndq-livecompare
-   my_project.ini`
+1. Edit the sample `docker/my_project.ini` file in the repository with correct
+   hostnames and password for BigAnimal and IP address for the Oracle
+   container.
+2. Run LiveCompare with the helper script: `docker/compare`

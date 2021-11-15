@@ -1,8 +1,7 @@
 *.sw?
 tags
-vagrant/.vagrant
 
-# edb_ddl_extractor.sql
-vagrant/*.log
-vagrant/*.sql
-vagrant/on.lst
+docker/edb_ddl_extractor.sql
+docker/_gen_*_ddls_????????????.sql
+docker/on.lst
+docker/lc_session_*

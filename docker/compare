@@ -1,0 +1,13 @@
+#!/bin/sh
+
+CONTAINER_EDB="edbdemo"
+
+UID=`id -u $USER`
+GID=`id -g $USER`
+
+CMD="2ndq-livecompare my_project.ini"
+docker exec -it -u ${UID}:${GID} -w /mnt $CONTAINER_EDB $CMD
+#docker exec -it -u root -w /mnt $CONTAINER_EDB $CMD
+
+echo
+echo "This was the command executed by this script: $CMD"

@@ -4,6 +4,11 @@ CONTAINER_EDB="edbdemo"
 IMAGE_EDB="edbdemo"
 CONTAINER_ORA="orademo"
 IMAGE_ORA="orademo"
+
+CWD=`pwd`
+DIR=`dirname $0`
+
 docker run -d --name $CONTAINER_ORA --shm-size=1g -p 1521:1521 $IMAGE_ORA
-docker run -d -p 8443:8443 --name $CONTAINER_EDB $IMAGE_EDB
+docker run -d -p 8443:8443 --name $CONTAINER_EDB -v ${CWD}/${DIR}:/mnt $IMAGE_EDB
+
 echo "You may monitor Oracle's container creation with: docker logs -f $CONTAINER"
