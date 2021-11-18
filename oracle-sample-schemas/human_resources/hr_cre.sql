@@ -363,18 +363,43 @@ AS SELECT
   BITAND(10111, 10101) bitandtest
 FROM COUNTRIES;
 
-CREATE VIEW employees_view_level_four(
-      "Employee",
-      "Cycle",
-      "LEVEL",
-      "Path")
+CREATE OR REPLACE VIEW hr.employee_management_chain_view
 AS
-SELECT last_name "Employee", CONNECT_BY_ISCYCLE "Cycle",
-   LEVEL, SYS_CONNECT_BY_PATH(last_name, '/') "Path"
-   FROM employees
-   WHERE level <= 3 AND department_id = 80
-   START WITH last_name = 'King'
-   CONNECT BY NOCYCLE PRIOR employee_id = manager_id AND LEVEL <= 4;
+SELECT last_name||', '||first_name "Employee"
+     , LEVEL "Heirarchy Level"
+     , SUBSTR( SYS_CONNECT_BY_PATH( last_name||', '||SUBSTR(first_name, 1, 1)||'.', ' -> ' ), 4 ) "Management Chain"
+  FROM hr.employees
+START WITH manager_id IS NULL
+CONNECT BY PRIOR employee_id = manager_id
+ORDER SIBLINGS BY last_name, first_name;
+
+CREATE OR REPLACE VIEW hr.planned_commission_updates_view
+AS
+SELECT first_name
+     , last_name
+     , salary
+     , commission_pct current_commission_pct
+     , ROUND(commission_pct*1.0825,2.0) new_commission_pct
+  FROM emp_details_view
+ WHERE commission_pct IS NOT NULL;
+
+CREATE OR REPLACE VIEW employees_by_department_view
+AS
+SELECT e.employee_id
+     , e.first_name
+     , e.last_name
+     , d.department_name
+     , j.job_title position
+     , e.salary
+     , em.last_name manager
+  FROM hr.employees e
+     , hr.jobs j
+     , hr.departments d
+     , hr.employees em
+ WHERE e.job_id = j.job_id
+   AND e.department_id = d.department_id
+   AND em.employee_id (+) = e.manager_id
+ORDER BY 4, 7, 5, 3, 2, 1;
 
 CREATE VIEW employees_manager_id (
 employee_id, last_name, manager_id)
