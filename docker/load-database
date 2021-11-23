@@ -6,8 +6,8 @@ MSG="DATABASE IS READY TO USE!"
 while [ 1 ]; do
 	docker logs $CONTAINER | grep -m 1 -q "$MSG"
 	if [ $? -ne 0 ]; then
-		echo -n "Oracle database is not ready to use... "
-		docker logs $CONTAINER | tail -n 1
+		STATUS=`docker logs $CONTAINER | tail -n 1`
+		echo "Oracle database is not ready to use... $STATUS"
 		sleep 3
 	else
 		break
