@@ -7,11 +7,11 @@ PW=`docker logs $CONTAINER_ORA | grep "ORACLE PASSWORD FOR SYS AND SYSTEM" | \
 IP=`docker inspect orademo | grep "\<IPAddress\>" | head -n 1 | \
 		cut -d ":" -f 2 | tr -d ' ",'`
 
-UID=`id -u $USER`
-GID=`id -g $USER`
+MYUID=`id -u $USER`
+MYGID=`id -g $USER`
 
 CMD="sqlplus sys/${PW}@//${IP}:1521/XEPDB1 as sysdba @edb_ddl_extractor.sql"
-docker exec -it -u ${UID}:${GID} -w /mnt $CONTAINER_EDB $CMD
+docker exec -it -u ${MYUID}:${MYGID} -w /mnt $CONTAINER_EDB $CMD
 
 echo
 echo "This was the command executed by this script: $CMD"
