@@ -35,7 +35,7 @@ RUN yum -y install oracle-instantclient-jdbc oracle-instantclient-odbc \
 
 # Install Oracle JDBC driver
 ARG OJDBC=ojdbc8-full
-RUN wget -OL https://download.oracle.com/otn-pub/otn_software/jdbc/1815/${OJDBC}.tar.gz
+RUN wget -L https://download.oracle.com/otn-pub/otn_software/jdbc/1815/${OJDBC}.tar.gz
 RUN tar xvf ${OJDBC}.tar.gz
 RUN (cd ${OJDBC} && mv *.jar /usr/lib/jvm/jre/lib/ext)
 
