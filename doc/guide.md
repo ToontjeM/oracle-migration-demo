@@ -92,7 +92,7 @@ the BigAnimal cluster that was previously created.
    5. Update `TARGET_DB_USER`: edb_admin
    6. Update `TARGET_DB_PASSWORD`:
 3. Run MTK to migrate the data from the Oracle database to BigAnimal:
-   `docker/mtk-migrate` 
+   `docker/mtk-migration` 
 
 ## LiveCompare
 
