@@ -30,6 +30,7 @@ you may need to restart the Docker containers:
 
 * docker start orademo
 * docker start edbdemo
+* docker/start-pem
 
 # Contact Information
 

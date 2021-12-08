@@ -19,3 +19,4 @@ following steps are all done from the command line:
    `docker/create-container`
 6. Create the Oracle sample schemas and load data with supplied script:
    `docker/load-database`
+7. Configure PEM: `docker/config-pem`
