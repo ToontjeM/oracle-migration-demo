@@ -21,16 +21,51 @@ A [demo guide](doc/guide.md) is provided as one method for performing a demo.
 
 ## Quick Notes
 
-Once the migration kit is prepared:
-
-* Connect to Oracle as *sysdba* on the command line: `docker/connect`
+### Starting Docker Containers
 
 The installation scripts only need to be run once.  If you reboot your laptop,
 you may need to restart the Docker containers:
 
-* docker start orademo
-* docker start edbdemo
-* docker/start-pem
+* `docker start orademo`
+* `docker start edbdemo`
+* `docker/start-pem` - The **edbdemo** container needs to be started first,
+  then this script starts **httpd** and PostgreSQL processes.
+
+### Connect to Oracle Database
+
+Once the containers have been created and are running, you can connect to
+Oracle as *sysdba* by running the following helper script: `docker/connect`
+
+```
+% docker/connect
+executing: sqlplus sys/c90c1b7f2eb71d9c@XEPDB1 as sysdba
+
+SQL*Plus: Release 18.0.0.0.0 - Production on Wed Dec 8 18:04:28 2021
+Version 18.4.0.0.0
+
+Copyright (c) 1982, 2018, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 18c Express Edition Release 18.0.0.0.0 - Production
+Version 18.4.0.0.0
+
+SQL>
+```
+
+### Container information
+
+Run the following script to get a summary of each container's IP address,
+automatically generated Oracle database passwords, and other helpful URLs:
+`docker/info`
+
+```
+% docker/info
+EDB IP Address: 172.17.0.3
+EDB PEM URL: https://172.17.0.3/pem
+Oracle Database Password: c90c1b7f2eb71d9c
+Oracle Database IP Address: 172.17.0.2
+```
 
 # Contact Information
 
