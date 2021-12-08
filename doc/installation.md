@@ -20,3 +20,14 @@ following steps are all done from the command line:
 6. Create the Oracle sample schemas and load data with supplied script:
    `docker/load-database`
 7. Configure PEM: `docker/config-pem`
+
+## EDB Repo Information
+
+Verify your *edb repo name* and *edb repo key* (note the same as your password)
+at
+[https://www.enterprisedb.com/accounts/profile](https://www.enterprisedb.com/accounts/profile).
+
+* *edb repo name* is the same as *Sign-in & Repository Username*
+* *edb repo key* is the same as *Repository Password*
+
+![](images/edb-accounts-profile.png)
