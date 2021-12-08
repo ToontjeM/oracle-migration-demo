@@ -2,10 +2,10 @@
 
 CONTAINER_EDB="edbdemo"
 CONTAINER_ORA="orademo"
-PW=`docker logs $CONTAINER_ORA | grep "ORACLE PASSWORD FOR SYS AND SYSTEM" | \
-		cut -d : -f 2 | xargs`
-IP=`docker inspect orademo | grep "\<IPAddress\>" | head -n 1 | \
-		cut -d ":" -f 2 | tr -d ' ",'`
+PW=`docker logs $CONTAINER_ORA 2> /dev/null | \
+		grep "ORACLE PASSWORD FOR SYS AND SYSTEM" | cut -d : -f 2 | xargs`
+IP=`docker inspect $CONTAINER_ORA 2> /dev/null | grep "\<IPAddress\>" | \
+		head -n 1 | cut -d ":" -f 2 | tr -d ' ",'`
 
 MYUID=`id -u $USER`
 MYGID=`id -g $USER`
