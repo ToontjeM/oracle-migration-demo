@@ -38,7 +38,8 @@ The connection information from the BigAnimal clusters:
 
 1. Log into the EDB [Migration Portal](https://migration.enterprisedb.com).
 2. Download the EDB DDL Extractor.  A direct link to the DDL Extractor cannot
-   be provided at this time.
+   be provided at this time.  
+   ![](images/edb-migration-portal-ddl-extractor.png)
 3. Copy the DDL Extractor to the `docker/` subdirectory, which is mounted at
    `/mnt` within the **edbdemo** container.
 4. Run the EDB DDL Extractor using the provided help script:
@@ -55,6 +56,26 @@ The connection information from the BigAnimal clusters:
    4. Enter `yes` at next prompt to extract any objects from other schemas:  
       `Extract dependent object from other schemas?(yes/no) (Default no /
       Ignored for all schemas option):yes`  
+ ```
+# -- EDB DDL Extractor Version 2.3.8 for Oracle Database -- #
+# --------------------------------------------------------- #
+
+Caution:
+Script USER must have CONNECT and SELECT_CATALOG_ROLE roles and CREATE TABLE privilege.
+(To verify granted roles and privileges, run the following commands: SELECT granted_role FROM user_role_privs;  or  SELECT privilege FROM user_sys_privs;)
+
+Press RETURN to continue ...
+
+Enter a comma-separated list of schemas, max up to 240 characters (Default all schemas): HR
+Location for output file (Default current location) : /mnt/
+
+WARNING:
+Given schema(s) list may contain objects which are dependent on objects from other schema(s), not mentioned in the list.
+Assessment may fail for such objects. It is suggested to extract all dependent objects together.
+
+Extract dependent object from other schemas?(yes/no) (Default no / Ignored for all schemas option):yes
+
+```
 5. Note the name of the resulting DDL file.  Near the end of the DDL Extractor
    out will be a message with the filename: `We have stored DDL(s) for
    Schema(s)  HR to _gen_hr_ddls_211111213244.sql.`
@@ -63,22 +84,29 @@ The connection information from the BigAnimal clusters:
    2. The Oracle version used in this kit is 18c.
    3. The DDL file to choose is the one just created from the container:
       `_gen_hr_ddls_211111213244.sql`
-   4. Click **Create & assess**.
+   4. Click **Create & assess**.  
+      ![](images/edb-migration-portal-new-project.png)
 7. Demonstrate how to correct the reported errors.
    1. TBD
-8. Create the target database on BigAnimal.
-9. Migrate the schema to BigAnimal.
-   1. Click on `Migrate to ...`
-   2. Select `EDB Postgres Advanced Server on Cloud` and click `Next`.
-   3. The `HR` should be selected, and the only schema listed.  Click `Next`.
-   4. Select `BigAnimal` and click `Next`.
-   5. Click `Next`.
+8. Migrate the schema to BigAnimal.
+   1. Click on `Migrate to ...`  
+      ![](images/edb-migration-portal-migrate-to.png)
+   2. Select `EDB Postgres Advanced Server on Cloud` and click `Next`.  
+      ![](images/edb-migration-portal-migrate-to-cloud.png)
+   3. The `HR` should be selected, and the only schema listed.  Click `Next`.  
+      ![](images/edb-migration-portal-migrate-schema.png)
+   4. Select `BigAnimal` and click `Next`.  
+      ![](images/edb-migration-portal-migrate-to-cloud-biganimal.png)
+   5. If a BigAnimal cluster doesn't exist yet, create one now.  Then click
+      `Next`.
    6. Enter the connection information to BigAnimal, click `Test Connection`,
       then click `Next`.
       1. Target Database: edb_admin
       2. Host Name/Address: copied from above
-      3. Password: password that was entered when creating BigAnimal cluster
-   7. Migration is complete, you may click `Done`.
+      3. Password: password that was entered when creating BigAnimal cluster  
+      ![](images/edb-migration-portal-test-connection.png)
+   7. When migration is complete, you may click `Done`.  
+      ![](images/edb-migration-portal-migration-successful.png)
 
 ## Migration Took Kit
 
