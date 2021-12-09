@@ -11,17 +11,19 @@ compatible PostgreSQL Schema.
 ### Preparation
 
 Passwords, IP addresses and connection information should be gathered from the
-Oracle Docker container and the BigAnimal cluster before performing this part
-of the demo.
+the BigAnimal cluster before performing the demo, unless you wish to demo that
+aspect of BigAnimal.
 
-The IP address and Oracle sysdba password needs to be collected from the Oracle
-container:
+The IP address and Oracle sysdba password can be retrieved by running:
+`docker/info`
 
-1. From a command line terminal, run: `docker logs orademo | head` and look for
-   the password shown on the line `ORACLE PASSWORD FOR SYS AND SYSTEM:`.  We
-   will use `c90c1b7f2eb71d9c` for this guide.
-2. From a command line terminal, run: `docker container inspect orademo | grep
-   IPAddress`.  We will use `172.17.0.2` for this guide.
+```
+% docker/info
+EDB IP Address: 172.17.0.3
+EDB PEM URL: https://172.17.0.3/pem
+Oracle Database Password: c90c1b7f2eb71d9c
+Oracle Database IP Address: 172.17.0.2
+```
 
 The connection information from the BigAnimal clusters:
 
@@ -29,6 +31,8 @@ The connection information from the BigAnimal clusters:
 2. Click on the lock shaped icon next to the cluster to use.
 3. Note the `Dbname`, `Host`, and `User` information.  The password will be
    what was entered when creating the cluster.
+
+![](images/biganimal-connect.png)
 
 ### Demonstration
 
