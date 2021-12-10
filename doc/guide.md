@@ -152,4 +152,37 @@ Invalid count: 0
 1. Edit the sample `docker/my_project.ini` file in the repository with correct
    hostnames and password for BigAnimal and IP address for the Oracle
    container.
-2. Run LiveCompare with the helper script: `docker/compare`
+2. Run LiveCompare with the helper script: `docker/compare`  
+```
+LiveCompare session 10, compare mode, finished with some appointments:
+    warnings: 4
+    errors: 0
+    critical errors: 0
+You can have more details in the log file(s): ./lc_session_10/lc_compare_*.log
+
+Saved file ./lc_session_10/summary_20211210.out with the complete table summary.
+You can also get the table summary by connecting to the output database and executing:
+select * from livecompare.vw_table_summary where session_id = 10;
+
+Elapsed time: 0:00:10.129037
+Processed 215 rows in 8 tables from 2 connections using 4 workers.
+Found 0 inconsistent rows.
+
+Copyright EnterpriseDB UK Limited 2019-2021 - All rights reserved.
+```
+3. Review the summary, note that the file is relative to the `docker`
+   directory: `cat docker/lc_session_10/summary_20211210.out`  
+```
++----------------+----------------+------------------+----------------------+-------------------+---------------------------+
+| table_name     | elapsed_time   |   num_total_rows |   num_processed_rows |   num_differences |   max_num_ignored_columns |
+|----------------+----------------+------------------+----------------------+-------------------+---------------------------|
+| hr.countries   | 0:00:00.094966 |               25 |                   25 |                 0 |                         0 |
+| hr.departments | 0:00:00.092961 |               27 |                   27 |                 0 |                         0 |
+| hr.emp_audit   | 0:00:00.092372 |                0 |                    0 |                 0 |                         0 |
+| hr.employees   | 0:00:00.154021 |              107 |                  107 |                 0 |                         0 |
+| hr.job_history | 0:00:00.130495 |               10 |                   10 |                 0 |                         0 |
+| hr.jobs        | 0:00:00.127978 |               19 |                   19 |                 0 |                         0 |
+| hr.locations   | 0:00:00.121004 |               23 |                   23 |                 0 |                         0 |
+| hr.regions     | 0:00:00.131928 |                4 |                    4 |                 0 |                         0 |
++----------------+----------------+------------------+----------------------+-------------------+---------------------------+
+```
