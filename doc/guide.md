@@ -87,7 +87,23 @@ Extract dependent object from other schemas?(yes/no) (Default no / Ignored for a
    4. Click **Create & assess**.  
       ![](images/edb-migration-portal-new-project.png)
 7. Demonstrate how to correct the reported errors.
-   1. TBD
+   1. Click the right error to expand the schema details.  
+      ![](images/migration-portal-schemas.png)
+   2. Expand the HR schema in the left sidebar and filter for failures by
+	  clicking on the exclamation point within the diamond.  
+      ![](images/migration-portal-schemas-objects-failed.png)
+   3. Fix the *EMPLOYEES_BY_DEPARTMENT_VIEW* view.
+	  1. Rewrite the Oracle left outer join operator `(+)` as an explicit
+		 `LEFT OUTER JOIN` join type in the `FROM` clause.
+      2. Add the `AS` keyword to the `j.job_title position` expression in the
+		 SELECT clause.  
+      ![](images/migration-portal-schemas-employees_by_department_view.png)
+   4. Fix the *ERROR_VIEW* view.
+      1. Replace the `BITAND()` function with the bitwise AND `(&)` operator.  
+      ![](images/migration-portal-schemas-objects-failed.png)
+   5. Fix the *PLANNED_COMMISSION_UPDATES_VIEW* view.
+      1. Cast the second argument of the `ROUND()` function to an integer.  
+      ![](images/migration-portal-schemas-planned_commision_udpates_view.png)
 8. Migrate the schema to BigAnimal.
    1. Click on `Migrate to ...`  
       ![](images/edb-migration-portal-migrate-to.png)
