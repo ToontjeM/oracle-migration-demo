@@ -1,6 +1,6 @@
 #!/bin/sh
 
 CONTAINER_EDB="edbdemo"
-CMD="/usr/edb/migrationtoolkit/bin/runMTK.sh -dataOnly -truncLoad HR"
+CMD="/usr/edb/migrationtoolkit/bin/runMTK.sh -dataOnly -truncLoad HRPLUS"
 docker exec -it -u root $CONTAINER_EDB sh -c "$CMD"
 echo "This was the command executed by this script: $CMD"

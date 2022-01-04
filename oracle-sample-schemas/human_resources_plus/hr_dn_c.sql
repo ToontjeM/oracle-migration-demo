@@ -25,11 +25,11 @@ Rem OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 Rem WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 Rem
 Rem    NAME
-Rem      hr_dn_c.sql - Add DN column to HR.EMPLOYEES and DEPARTMENTS
+Rem      hr_dn_c.sql - Add DN column to HRPLUS.EMPLOYEES and DEPARTMENTS
 Rem
 Rem    DESCRIPTION
 Rem      the DN (distinguished Name) column is used by OID.
-Rem      This script adds the column to the HR schema. It is not
+Rem      This script adds the column to the HRPLUS schema. It is not
 Rem      part of the default set of Sample Schemas, but shipped
 Rem      as an extension script for demo purposes.
 Rem

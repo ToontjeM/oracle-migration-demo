@@ -25,10 +25,10 @@ rem
 rem Owner  : ahunold
 rem
 rem NAME
-rem   hr_main.sql - Main script for HR schema
+rem   hr_main.sql - Main script for HRPLUS schema
 rem
 rem DESCRIPTON
-rem   HR (Human Resources) is the smallest and most simple one 
+rem   HRPLUS (Human Resources Plus) is the smallest and most simple one 
 rem   of the Sample Schemas
 rem   
 rem NOTES
@@ -54,13 +54,13 @@ SET ECHO OFF
 SET VERIFY OFF
 
 PROMPT 
-PROMPT specify password for HR as parameter 1:
+PROMPT specify password for HRPLUS as parameter 1:
 DEFINE pass     = &1
 PROMPT 
-PROMPT specify default tablespeace for HR as parameter 2:
+PROMPT specify default tablespeace for HRPLUS as parameter 2:
 DEFINE tbs      = &2
 PROMPT 
-PROMPT specify temporary tablespace for HR as parameter 3:
+PROMPT specify temporary tablespace for HRPLUS as parameter 3:
 DEFINE ttbs     = &3
 PROMPT 
 PROMPT specify password for SYS as parameter 4:
@@ -83,7 +83,7 @@ REM =======================================================
 REM cleanup section
 REM =======================================================
 
-DROP USER hr CASCADE;
+DROP USER hrplus CASCADE;
 
 REM =======================================================
 REM create user
@@ -92,28 +92,28 @@ REM will succeed regardless of the existence of the
 REM DEMO and TEMP tablespaces 
 REM =======================================================
 
-CREATE USER hr IDENTIFIED BY &pass;
+CREATE USER hrplus IDENTIFIED BY &pass;
 
-ALTER USER hr DEFAULT TABLESPACE &tbs
+ALTER USER hrplus DEFAULT TABLESPACE &tbs
               QUOTA UNLIMITED ON &tbs;
 
-ALTER USER hr TEMPORARY TABLESPACE &ttbs;
+ALTER USER hrplus TEMPORARY TABLESPACE &ttbs;
 
-GRANT CREATE SESSION, CREATE VIEW, ALTER SESSION, CREATE SEQUENCE TO hr;
-GRANT CREATE SYNONYM, CREATE DATABASE LINK, RESOURCE , UNLIMITED TABLESPACE TO hr;
+GRANT CREATE SESSION, CREATE VIEW, ALTER SESSION, CREATE SEQUENCE TO hrplus;
+GRANT CREATE SYNONYM, CREATE DATABASE LINK, RESOURCE , UNLIMITED TABLESPACE TO hrplus;
 
 REM =======================================================
 REM grants from sys schema
 REM =======================================================
 
 CONNECT sys/&pass_sys@&connect_string AS SYSDBA;
-GRANT execute ON sys.dbms_stats TO hr;
+GRANT execute ON sys.dbms_stats TO hrplus;
 
 REM =======================================================
-REM create hr schema objects
+REM create hrplus schema objects
 REM =======================================================
 
-CONNECT hr/&pass@&connect_string
+CONNECT hrplus/&pass@&connect_string
 ALTER SESSION SET NLS_LANGUAGE=American;
 ALTER SESSION SET NLS_TERRITORY=America;
 
@@ -121,36 +121,36 @@ ALTER SESSION SET NLS_TERRITORY=America;
 -- create tables, sequences and constraint
 --
 
-@__SUB__CWD__/human_resources/hr_cre
+@__SUB__CWD__/human_resources_plus/hr_cre
 
 -- 
 -- populate tables
 --
 
-@__SUB__CWD__/human_resources/hr_popul
+@__SUB__CWD__/human_resources_plus/hr_popul
 
 --
 -- create indexes
 --
 
-@__SUB__CWD__/human_resources/hr_idx
+@__SUB__CWD__/human_resources_plus/hr_idx
 
 --
 -- create procedural objects
 --
 
-@__SUB__CWD__/human_resources/hr_code
+@__SUB__CWD__/human_resources_plus/hr_code
 
 --
 -- add comments to tables and columns
 --
 
-@__SUB__CWD__/human_resources/hr_comnt
+@__SUB__CWD__/human_resources_plus/hr_comnt
 
 --
 -- gather schema statistics
 --
 
-@__SUB__CWD__/human_resources/hr_analz
+@__SUB__CWD__/human_resources_plus/hr_analz
 
 spool off

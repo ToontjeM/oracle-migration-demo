@@ -46,10 +46,10 @@ The connection information from the BigAnimal clusters:
    `docker/extract-ddl`
    1. Press `RETURN` at the first prompt to continue:  
       `Press RETURN to continue ...`  
-   2. Enter `HR` to only extract the `HR` database (multiple databases are
+   2. Enter `HRPLUS` to only extract the `HRPLUS` database (multiple databases are
       installed:  
       `Enter a comma-separated list of schemas, max up to 240 characters
-      (Default all schemas): HR`  
+      (Default all schemas): HRPLUS`  
    3. Enter `/mnt/` (trailing slash is required) and press `RETURN` at next
 	  prompt so that the resulting DDL file will in the `docker/` directory:  
       `Location for output file (Default current location) : `  
@@ -66,7 +66,7 @@ Script USER must have CONNECT and SELECT_CATALOG_ROLE roles and CREATE TABLE pri
 
 Press RETURN to continue ...
 
-Enter a comma-separated list of schemas, max up to 240 characters (Default all schemas): HR
+Enter a comma-separated list of schemas, max up to 240 characters (Default all schemas): HRPLUS
 Location for output file (Default current location) : /mnt/
 
 WARNING:
@@ -78,18 +78,18 @@ Extract dependent object from other schemas?(yes/no) (Default no / Ignored for a
 ```
 5. Note the name of the resulting DDL file.  Near the end of the DDL Extractor
    out will be a message with the filename: `We have stored DDL(s) for
-   Schema(s)  HR to _gen_hr_ddls_211111213244.sql.`
+   Schema(s)  HRPLUS to _gen_hrplus_ddls_211111213244.sql.`
 6. Back in the Migration Portal, create a new project
    1. Enter a new project name.
    2. The Oracle version used in this kit is 18c.
    3. The DDL file to choose is the one just created from the container:
-      `_gen_hr_ddls_211111213244.sql`
+      `_gen_hrplus_ddls_211111213244.sql`
    4. Click **Create & assess**.  
       ![](images/edb-migration-portal-new-project.png)
 7. Demonstrate how to correct the reported errors.
    1. Click the right error to expand the schema details.  
       ![](images/migration-portal-schemas.png)
-   2. Expand the HR schema in the left sidebar and filter for failures by
+   2. Expand the HRPLUS schema in the left sidebar and filter for failures by
 	  clicking on the exclamation point within the diamond.  
       ![](images/migration-portal-schemas-objects-failed.png)
    3. Fix the *EMPLOYEES_BY_DEPARTMENT_VIEW* view.
@@ -109,7 +109,7 @@ Extract dependent object from other schemas?(yes/no) (Default no / Ignored for a
       ![](images/edb-migration-portal-migrate-to.png)
    2. Select `EDB Postgres Advanced Server on Cloud` and click `Next`.  
       ![](images/edb-migration-portal-migrate-to-cloud.png)
-   3. The `HR` should be selected, and the only schema listed.  Click `Next`.  
+   3. The `HRPLUS` should be selected, and the only schema listed.  Click `Next`.  
       ![](images/edb-migration-portal-migrate-schema.png)
    4. Select `BigAnimal` and click `Next`.  
       ![](images/edb-migration-portal-migrate-to-cloud-biganimal.png)
@@ -189,16 +189,16 @@ Copyright EnterpriseDB UK Limited 2019-2021 - All rights reserved.
 3. Review the summary, note that the file is relative to the `docker`
    directory: `cat docker/lc_session_10/summary_20211210.out`  
 ```
-+----------------+----------------+------------------+----------------------+-------------------+---------------------------+
-| table_name     | elapsed_time   |   num_total_rows |   num_processed_rows |   num_differences |   max_num_ignored_columns |
-|----------------+----------------+------------------+----------------------+-------------------+---------------------------|
-| hr.countries   | 0:00:00.094966 |               25 |                   25 |                 0 |                         0 |
-| hr.departments | 0:00:00.092961 |               27 |                   27 |                 0 |                         0 |
-| hr.emp_audit   | 0:00:00.092372 |                0 |                    0 |                 0 |                         0 |
-| hr.employees   | 0:00:00.154021 |              107 |                  107 |                 0 |                         0 |
-| hr.job_history | 0:00:00.130495 |               10 |                   10 |                 0 |                         0 |
-| hr.jobs        | 0:00:00.127978 |               19 |                   19 |                 0 |                         0 |
-| hr.locations   | 0:00:00.121004 |               23 |                   23 |                 0 |                         0 |
-| hr.regions     | 0:00:00.131928 |                4 |                    4 |                 0 |                         0 |
-+----------------+----------------+------------------+----------------------+-------------------+---------------------------+
++--------------------+----------------+------------------+----------------------+-------------------+---------------------------+
+| table_name         | elapsed_time   |   num_total_rows |   num_processed_rows |   num_differences |   max_num_ignored_columns |
+|--------------------+----------------+------------------+----------------------+-------------------+---------------------------|
+| hrplus.countries   | 0:00:00.094966 |               25 |                   25 |                 0 |                         0 |
+| hrplus.departments | 0:00:00.092961 |               27 |                   27 |                 0 |                         0 |
+| hrplus.emp_audit   | 0:00:00.092372 |                0 |                    0 |                 0 |                         0 |
+| hrplus.employees   | 0:00:00.154021 |              107 |                  107 |                 0 |                         0 |
+| hrplus.job_history | 0:00:00.130495 |               10 |                   10 |                 0 |                         0 |
+| hrplus.jobs        | 0:00:00.127978 |               19 |                   19 |                 0 |                         0 |
+| hrplus.locations   | 0:00:00.121004 |               23 |                   23 |                 0 |                         0 |
+| hrplus.regions     | 0:00:00.131928 |                4 |                    4 |                 0 |                         0 |
++--------------------+----------------+------------------+----------------------+-------------------+---------------------------+
 ```

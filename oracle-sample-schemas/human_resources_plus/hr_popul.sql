@@ -25,7 +25,7 @@ rem
 rem Owner  : ahunold
 rem
 rem NAME
-rem   hr_popul.sql - Populate script for HR schema
+rem   hr_popul.sql - Populate script for HRPLUS schema
 rem
 rem DESCRIPTON
 rem

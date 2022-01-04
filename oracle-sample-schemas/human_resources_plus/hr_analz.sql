@@ -1,7 +1,7 @@
 Rem
-Rem $Header: hr_dn_d.sql 29-aug-2002.11:44:06 hyeh Exp $
+Rem $Header: hr_analz.sql 12-oct-2002.10:24:59 ahunold Exp $
 Rem
-Rem hr_dn_d.sql
+Rem hr_analz.sql
 Rem
 Rem Copyright (c) 2001, 2015, Oracle Corporation.  All rights reserved.  
 Rem 
@@ -25,20 +25,22 @@ Rem OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 Rem WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 Rem
 Rem    NAME
-Rem      hr_dn_d.sql - Drop DN column from EMPLOYEES and DEPARTMENTS
+Rem      hr_analz.sql - Gathering statistics for HRPLUS schema
 Rem
 Rem    DESCRIPTION
-Rem      the DN (distinguished Name) column is used by OID.
-Rem      This script drops the column from the HR schema. 
+Rem      Staistics are used by the cost based optimizer to
+Rem      choose the best physical access strategy
 Rem
 Rem    NOTES
-Rem      Use this to undo changes made by hr_dn_c.sql
+Rem      Results can be viewed in columns of DBA_TABLES, 
+Rem      DBA_TAB_COLUMNS and such
 Rem
 Rem    MODIFIED   (MM/DD/YY)
+Rem    ahunold     10/12/02 - gather_schema_stats instead of gather_table_stats
 Rem    hyeh        08/29/02 - hyeh_mv_comschema_to_rdbms
-Rem    ahunold     03/03/01 - HR simplification, REGIONS table
-Rem    ahunold     02/20/01 - Merged ahunold_american
-Rem    ahunold     02/20/01 - Created
+Rem    ahunold     03/12/01 - cleanup b3
+Rem    ahunold     03/07/01 - Merged ahunold_hr_analz
+Rem    ahunold     03/07/01 - Created
 Rem
 
 SET FEEDBACK 1
@@ -47,10 +49,12 @@ SET LINESIZE 80
 SET TRIMSPOOL ON
 SET TAB OFF
 SET PAGESIZE 100
-SET ECHO ON
+SET ECHO OFF
 
-ALTER TABLE departments
- DROP COLUMN dn ;
+EXECUTE dbms_stats.gather_schema_stats( -
+        'HRPLUS'                            ,       -
+        granularity => 'ALL'            ,       -
+        cascade => TRUE                 ,       -
+        block_sample => TRUE            );
 
-ALTER TABLE employees
- DROP COLUMN dn ; 
+

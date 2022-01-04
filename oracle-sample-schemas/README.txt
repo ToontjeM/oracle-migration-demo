@@ -50,12 +50,12 @@ provides instructions for creating the Sample Schemas.
 	objects, and for loading data.  These scripts are called by 
 	the mksample.sql script.
 
-1.2.1	human_resources
+1.2.1	human_resources_plus
 
-1.2.1.1	The hr_main.sql script creates or recreates the HR schema.
+1.2.1.1	The hr_main.sql script creates or recreates the HRPLUS schema.
 
 1.2.1.2	The hr_drop.sql script drops all objects of the schema, but 
-	does not remove the HR user.
+	does not remove the HRPLUS user.
  
 1.2.2	order_entry
 
@@ -101,7 +101,7 @@ provides instructions for creating the Sample Schemas.
 
 		SYSTEM: <SYSTEM_password>
 		SYS:    <SYS_password>
-		HR:     <HR_password>
+		HRPLUS: <HR_password>
 		OE:     <OE_password>
 		PM:     <PM_password>
 		IX:     <IX_password>
@@ -146,7 +146,7 @@ provides instructions for creating the Sample Schemas.
 3.  	Schema dependencies and requirements:
 
 3.1 	The OE schema requires that the database be enabled for spatial data
-	and that the HR schema exists.
+	and that the HRPLUS schema exists.
  
 3.2	The PM schema requires that the database be enabled for Intermedia, 
 	which itself requires a Java-enabled database, and that the OE 

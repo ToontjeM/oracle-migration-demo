@@ -104,7 +104,7 @@ PROMPT
 PROMPT specify password for SYS as parameter 1:
 DEFINE password_sys        = &1
 PROMPT
-PROMPT specify password for HR as parameter 2:
+PROMPT specify password for HRPLUS as parameter 2:
 DEFINE password_hr         = &2
 PROMPT
 PROMPT specify password for OE as parameter 3:
@@ -160,7 +160,7 @@ SELECT TO_CHAR(systimestamp, 'YYYYMMDD HH:MI:SS')  FROM dual;
 -- Creating users and granting system privileges
 --
 
-CREATE USER hr IDENTIFIED BY &&password_hr ;
+CREATE USER hrplus IDENTIFIED BY &&password_hr ;
 CREATE USER oe IDENTIFIED BY &&password_oe ;
 CREATE USER ix IDENTIFIED BY &&password_ix ;
 CREATE USER sh IDENTIFIED BY &&password_sh ;
@@ -169,14 +169,14 @@ CREATE USER bi IDENTIFIED BY &&password_bi ;
 
 @__SUB__CWD__/mk_dir
 
-GRANT CREATE SESSION			TO hr;
-GRANT ALTER SESSION			TO hr;
-GRANT CREATE DATABASE LINK		TO hr; 
-GRANT CREATE SEQUENCE			TO hr;
-GRANT CREATE SYNONYM			TO hr;
-GRANT CREATE VIEW			TO hr;
-GRANT RESOURCE , UNLIMITED TABLESPACE 				TO hr;
-GRANT execute ON sys.dbms_stats 	TO hr;
+GRANT CREATE SESSION			TO hrplus;
+GRANT ALTER SESSION			TO hrplus;
+GRANT CREATE DATABASE LINK		TO hrplus; 
+GRANT CREATE SEQUENCE			TO hrplus;
+GRANT CREATE SYNONYM			TO hrplus;
+GRANT CREATE VIEW			TO hrplus;
+GRANT RESOURCE , UNLIMITED TABLESPACE 				TO hrplus;
+GRANT execute ON sys.dbms_stats 	TO hrplus;
 
 GRANT CREATE SESSION 			TO oe;
 GRANT CREATE DATABASE LINK		TO oe;
@@ -394,10 +394,10 @@ REM   ==========================================
 REM
 
 PROMPT
-PROMPT Creating sequences, views, procedures and objects privileges for HR ...
+PROMPT Creating sequences, views, procedures and objects privileges for HRPLUS ...
 SELECT TO_CHAR(systimestamp, 'YYYYMMDD HH:MI:SS')  FROM dual;
 
-CONNECT hr/&&password_hr;
+CONNECT hrplus/&&password_hr;
 
 --
 -- Sequences
@@ -479,7 +479,7 @@ WITH READ ONLY;
 -- Rebuilding procedural objects
 --
 
-@__SUB__CWD__/human_resources/hr_code
+@__SUB__CWD__/human_resources_plus/hr_code
 
 -- rebuild OE by dropping and recreating
 CONNECT sys/&&password_sys AS SYSDBA;
@@ -513,7 +513,7 @@ SPOOL &log_path.mkplug_p2_&vrs..log
 -- Object privileges
 --
 
-connect hr/&&password_hr;
+connect hrplus/&&password_hr;
 
 GRANT REFERENCES, SELECT ON employees 	TO oe;
 GRANT REFERENCES, SELECT ON countries 	TO oe;
@@ -799,8 +799,8 @@ connect oe/&&password_oe;
 @__SUB__CWD__/order_entry/oe_analz
 connect pm/&&password_pm;
 @__SUB__CWD__/product_media/pm_analz
-connect hr/&&password_hr;
-@__SUB__CWD__/human_resources/hr_analz
+connect hrplus/&&password_hr;
+@__SUB__CWD__/human_resources_plus/hr_analz
 connect sh/&&password_sh
 @__SUB__CWD__/sales_history/sh_analz
 

@@ -62,7 +62,7 @@ COMMENT ON COLUMN oe.customers.customer_id IS
 'Primary key column.';
 
 COMMENT ON COLUMN oe.customers.account_mgr_id IS
-'References hr.employees.employee_id.';
+'References hrplus.employees.employee_id.';
 
 REM ===========================================================================
 
@@ -76,7 +76,7 @@ COMMENT ON COLUMN oe.warehouses.warehouse_id IS
 'Primary key column.';
 
 COMMENT ON COLUMN oe.warehouses.location_id IS
-'Primary key column, references hr.locations.location_id.';
+'Primary key column, references hrplus.locations.location_id.';
 
 REM ===========================================================================
 
@@ -111,7 +111,7 @@ COMMENT ON COLUMN oe.orders.order_id IS
 'PRIMARY KEY column.';
 
 COMMENT ON COLUMN oe.orders.sales_rep_id IS
-'References hr.employees.employee_id.';
+'References hrplus.employees.employee_id.';
 
 COMMENT ON COLUMN oe.orders.promotion_id IS
 'Sales promotion ID. Used in SH schema';

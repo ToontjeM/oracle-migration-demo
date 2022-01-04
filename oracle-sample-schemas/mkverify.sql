@@ -106,7 +106,7 @@ PROMPT All named objects and stati
 
 SELECT    owner, object_type, object_name, subobject_name, status
  FROM     dba_objects
- WHERE    owner in ('HR','OE','SH','PM','IX','BI')
+ WHERE    owner in ('HRPLUS','OE','SH','PM','IX','BI')
  AND      object_name NOT LIKE 'SYS%'
  ORDER BY 1,2,3,4;
 
@@ -115,7 +115,7 @@ PROMPT Data types used
 
 SELECT    owner, data_type, data_type_owner, data_type_mod, COUNT(*)
  FROM     dba_tab_columns
- WHERE    owner in ('HR','OE','SH','PM','IX','BI')
+ WHERE    owner in ('HRPLUS','OE','SH','PM','IX','BI')
  GROUP BY owner, data_type, data_type_owner, data_type_mod
  ORDER BY 2,1,3,4;
 
@@ -124,7 +124,7 @@ PROMPT XML tables
 
 SELECT    owner, table_name, schema_owner, storage_type
  FROM     dba_xml_tables
- WHERE    owner in ('HR','OE','SH','PM','IX','BI')
+ WHERE    owner in ('HRPLUS','OE','SH','PM','IX','BI')
  ORDER BY 1,2;
 
 PROMPT
@@ -132,7 +132,7 @@ PROMPT All objects named 'SYS%' (LOBs etc)
 
 SELECT    owner, object_type, status, COUNT(*)
  FROM     dba_objects
- WHERE    owner in ('HR','OE','SH','PM','IX','BI')
+ WHERE    owner in ('HRPLUS','OE','SH','PM','IX','BI')
  AND      object_name LIKE 'SYS%'
  GROUP BY owner, object_type, status
  ORDER BY 2,1,3;
@@ -153,7 +153,7 @@ SELECT	  owner,
 	  generated, 
 	  COUNT(*)
  FROM     dba_constraints
- WHERE    owner in ('HR','OE','SH','PM','IX','BI')
+ WHERE    owner in ('HRPLUS','OE','SH','PM','IX','BI')
  GROUP BY owner, constraint_type, status, validated, generated
  ORDER BY 2,3,4,5,1;
  
@@ -162,7 +162,7 @@ PROMPT All dimensions
 
 SELECT    owner, dimension_name, invalid, compile_state
  FROM     dba_dimensions
- WHERE    owner in ('HR','OE','SH','PM','IX','BI')
+ WHERE    owner in ('HRPLUS','OE','SH','PM','IX','BI')
  ORDER BY 1,2;
  
 PROMPT
@@ -170,7 +170,7 @@ PROMPT All granted roles
 
 SELECT    granted_role, grantee
  FROM     dba_role_privs
- WHERE    grantee in ('HR','OE','SH','PM','IX','BI')
+ WHERE    grantee in ('HRPLUS','OE','SH','PM','IX','BI')
  ORDER BY 1,2;
 
 PROMPT
@@ -178,7 +178,7 @@ PROMPT All granted system privileges
 
 SELECT    privilege, grantee
  FROM     dba_sys_privs
- WHERE    grantee in ('HR','OE','SH','PM','IX','BI')
+ WHERE    grantee in ('HRPLUS','OE','SH','PM','IX','BI')
  ORDER BY 1,2;
 
 PROMPT
@@ -186,7 +186,7 @@ PROMPT All granted object privileges
 
 SELECT    owner, table_name, privilege, grantee
  FROM     dba_tab_privs
- WHERE    grantee in ('HR','OE','SH','PM','IX','BI')
+ WHERE    grantee in ('HRPLUS','OE','SH','PM','IX','BI')
  ORDER BY 1,2,3,4;
 
 PROMPT
@@ -194,7 +194,7 @@ PROMPT Space usage
 
 SELECT    owner, segment_type, sum(bytes)
  FROM     dba_segments
- WHERE    owner in ('HR','OE','SH','PM','IX','BI')
+ WHERE    owner in ('HRPLUS','OE','SH','PM','IX','BI')
  GROUP BY ROLLUP (owner, segment_type);
 
 PROMPT
@@ -202,7 +202,7 @@ PROMPT Table cardinality relational and object tables
 
 SELECT    owner, table_name, num_rows
  FROM     dba_all_tables
- WHERE    owner in ('HR','OE','SH','PM','IX','BI')
+ WHERE    owner in ('HRPLUS','OE','SH','PM','IX','BI')
  ORDER BY 1,2,3;
 
 PROMPT
@@ -210,7 +210,7 @@ PROMPT Index cardinality (without  LOB indexes)
 
 SELECT    owner, index_name, distinct_keys, num_rows
  FROM     dba_indexes
- WHERE    owner in ('HR','OE','SH','PM','IX','BI')
+ WHERE    owner in ('HRPLUS','OE','SH','PM','IX','BI')
  AND      index_name NOT LIKE 'SYS%'
  ORDER BY 1,2,3;        
 

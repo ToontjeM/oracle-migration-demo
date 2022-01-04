@@ -1,4 +1,4 @@
-HR Modified schema
+HRPLUS Modified schema
 
 Execute the code in the following order:
 1. hr_cre

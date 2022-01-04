@@ -25,11 +25,11 @@ Rem OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 Rem WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 Rem
 Rem    NAME
-Rem      hr_cre.sql - Create data objects for HR schema
+Rem      hr_cre.sql - Create data objects for HRPLUS schema
 Rem
 Rem    DESCRIPTION
 Rem      This script creates six tables, associated constraints
-Rem      and indexes in the human resources (HR) schema.
+Rem      and indexes in the human resources (HRPLUS) schema.
 Rem
 Rem    NOTES
 Rem
@@ -61,7 +61,7 @@ SET ECHO OFF
 
 REM ********************************************************************
 REM Create the REGIONS table to hold region information for locations
-REM HR.LOCATIONS table has a foreign key to this table.
+REM HRPLUS.LOCATIONS table has a foreign key to this table.
 
 Prompt ******  Creating REGIONS table ....
 
@@ -82,7 +82,7 @@ ADD ( CONSTRAINT reg_id_pk
 REM ********************************************************************
 REM Create the COUNTRIES table to hold country information for customers
 REM and company locations. 
-REM OE.CUSTOMERS table and HR.LOCATIONS have a foreign key to this table.
+REM OE.CUSTOMERS table and HRPLUS.LOCATIONS have a foreign key to this table.
 
 Prompt ******  Creating COUNTRIES table ....
 
@@ -104,7 +104,7 @@ ADD ( CONSTRAINT countr_reg_fk
 
 REM ********************************************************************
 REM Create the LOCATIONS table to hold address information for company departments.
-REM HR.DEPARTMENTS has a foreign key to this table.
+REM HRPLUS.DEPARTMENTS has a foreign key to this table.
 
 Prompt ******  Creating LOCATIONS table ....
 
@@ -141,7 +141,7 @@ CREATE SEQUENCE locations_seq
 
 REM ********************************************************************
 REM Create the DEPARTMENTS table to hold company department information.
-REM HR.EMPLOYEES and HR.JOB_HISTORY have a foreign key to this table.
+REM HRPLUS.EMPLOYEES and HRPLUS.JOB_HISTORY have a foreign key to this table.
 
 Prompt ******  Creating DEPARTMENTS table ....
 
@@ -176,7 +176,7 @@ CREATE SEQUENCE departments_seq
 
 REM ********************************************************************
 REM Create the JOBS table to hold the different names of job roles within the company.
-REM HR.EMPLOYEES has a foreign key to this table.
+REM HRPLUS.EMPLOYEES has a foreign key to this table.
 
 Prompt ******  Creating JOBS table ....
 
@@ -199,7 +199,7 @@ ADD ( CONSTRAINT job_id_pk
 REM ********************************************************************
 REM Create the EMPLOYEES table to hold the employee personnel 
 REM information for the company.
-REM HR.EMPLOYEES has a self referencing foreign key to this table.
+REM HRPLUS.EMPLOYEES has a self referencing foreign key to this table.
 
 Prompt ******  Creating EMPLOYEES table ....
 
@@ -263,7 +263,7 @@ CREATE SEQUENCE employees_seq
 REM ********************************************************************
 REM Create the JOB_HISTORY table to hold the history of jobs that 
 REM employees have held in the past.
-REM HR.JOBS, HR_DEPARTMENTS, and HR.EMPLOYEES have a foreign key to this table.
+REM HRPLUS.JOBS, HR_DEPARTMENTS, and HRPLUS.EMPLOYEES have a foreign key to this table.
 
 Prompt ******  Creating JOB_HISTORY table ....
 
@@ -363,17 +363,17 @@ AS SELECT
   BITAND(10111, 10101) bitandtest
 FROM COUNTRIES;
 
-CREATE OR REPLACE VIEW hr.employee_management_chain_view
+CREATE OR REPLACE VIEW hrplus.employee_management_chain_view
 AS
 SELECT last_name||', '||first_name "Employee"
      , LEVEL "Heirarchy Level"
      , SUBSTR( SYS_CONNECT_BY_PATH( last_name||', '||SUBSTR(first_name, 1, 1)||'.', ' -> ' ), 4 ) "Management Chain"
-  FROM hr.employees
+  FROM hrplus.employees
 START WITH manager_id IS NULL
 CONNECT BY PRIOR employee_id = manager_id
 ORDER SIBLINGS BY last_name, first_name;
 
-CREATE OR REPLACE VIEW hr.planned_commission_updates_view
+CREATE OR REPLACE VIEW hrplus.planned_commission_updates_view
 AS
 SELECT first_name
      , last_name
@@ -392,10 +392,10 @@ SELECT e.employee_id
      , j.job_title position
      , e.salary
      , em.last_name manager
-  FROM hr.employees e
-     , hr.jobs j
-     , hr.departments d
-     , hr.employees em
+  FROM hrplus.employees e
+     , hrplus.jobs j
+     , hrplus.departments d
+     , hrplus.employees em
  WHERE e.job_id = j.job_id
    AND e.department_id = d.department_id
    AND em.employee_id (+) = e.manager_id
@@ -414,8 +414,8 @@ AS
   SELECT first_name,
          last_name,
          department_name
-  FROM   hr.employees e,
-         hr.departments d
+  FROM   hrplus.employees e,
+         hrplus.departments d
   WHERE  e.department_id (+) = d.department_id;
 
 CREATE TABLE countries

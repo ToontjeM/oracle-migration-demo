@@ -28,7 +28,7 @@ Rem    NAME
 Rem      drop_sch.sql
 Rem
 Rem    DESCRIPTION
-Rem      Drops all Sample Schemas (HR,OE,IX,PM,SH)
+Rem      Drops all Sample Schemas (HRPLUS,OE,IX,PM,SH)
 Rem
 Rem    NOTES
 Rem      Must be run as SYSTEM
@@ -36,7 +36,7 @@ Rem
 Rem      CAUTION: Never use the above mentioned Sample Schemas for
 Rem               anything other than demos and examples.
 Rem      CAUTION: Do not use this script if you have production user accounts
-Rem               named HR,OE,IX,PM,SH
+Rem               named HRPLUS,OE,IX,PM,SH
 Rem
 Rem
 Rem    MODIFIED   (MM/DD/YY)
@@ -85,7 +85,7 @@ PROMPT All user named objects owned by schema accounts
 
  SELECT   owner, object_type, object_name, status
  FROM     dba_objects
- WHERE    owner in ('HR','OE','SH','PM','IX','BI')
+ WHERE    owner in ('HRPLUS','OE','SH','PM','IX','BI')
  AND      object_name NOT LIKE 'SYS%'
  ORDER BY 1,2,3,4;
 
@@ -95,7 +95,7 @@ PROMPT All SYS named objects owned by schema accounts
 
  SELECT    owner, object_type, object_name, status
  FROM     dba_objects
- WHERE    owner in ('HR','OE','SH','PM','IX','BI')
+ WHERE    owner in ('HRPLUS','OE','SH','PM','IX','BI')
  AND      object_name LIKE 'SYS%'
  ORDER BY 2,1,3;
 
@@ -103,7 +103,7 @@ Rem ******** Drop Sample Schemas, cascade to objects ********
 PROMPT
 PROMPT Dropping Sample Schemas
 
-DROP USER hr CASCADE;
+DROP USER hrplus CASCADE;
 DROP USER oe CASCADE;
 DROP USER pm CASCADE;
 DROP USER ix CASCADE;
@@ -117,7 +117,7 @@ PROMPT Verifying drop of Sample Schemas
 
 SELECT   owner, object_type, object_name
  FROM     dba_objects
- WHERE    owner in ('HR','OE','SH','PM','IX','BI')
+ WHERE    owner in ('HRPLUS','OE','SH','PM','IX','BI')
  ORDER BY 1,2,3;
 
 SPOOL OFF

@@ -72,7 +72,7 @@ PROMPT
 PROMPT specify temporary tablespace for OE as parameter 3:
 DEFINE ttbs     = &3
 PROMPT 
-PROMPT specify password for HR as parameter 4:
+PROMPT specify password for HRPLUS as parameter 4:
 DEFINE passhr   = &4
 PROMPT 
 PROMPT specify password for SYS as parameter 5:
@@ -130,10 +130,10 @@ CONNECT sys/&pass_sys@&connect_string AS SYSDBA;
 GRANT execute ON sys.dbms_stats TO oe;
 
 REM =======================================================
-REM grants from hr schema
+REM grants from hrplus schema
 REM =======================================================
 
-CONNECT hr/&passhr@&connect_string;
+CONNECT hrplus/&passhr@&connect_string;
 GRANT REFERENCES, SELECT ON employees TO oe;
 GRANT REFERENCES, SELECT ON countries TO oe;
 GRANT REFERENCES, SELECT ON locations TO oe;

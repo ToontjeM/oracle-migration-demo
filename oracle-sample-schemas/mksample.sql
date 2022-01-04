@@ -48,7 +48,7 @@ Rem		    EXTENT MANAGEMENT LOCAL
 Rem                 SEGMENT SPACE MANAGEMENT AUTO;
 Rem                 
 Rem      - CAUTION: This script will erase the following schemas:
-Rem        - HR
+Rem        - HRPLUS
 Rem        - OE
 Rem        - PM
 Rem        - SH
@@ -82,7 +82,7 @@ Rem      ahunold   08/15/02 - versioning, new oe_main parameters, ix
 Rem      ahunold   12/05/01 - added parameters
 Rem      ahunold   05/03/01 - dupl lines
 Rem      ahunold   04/23/01 - Verification, parameters for pm_main.
-Rem      ahunold   04/13/01 - aaditional parameter (HR,OE,QS)
+Rem      ahunold   04/13/01 - aaditional parameter (HRPLUS,OE,QS)
 Rem      ahunold   04/04/01 - Installer variables
 Rem      ahunold   04/03/01 - Merged ahunold_mkdir_log
 Rem      ahunold   03/28/01 - Created
@@ -105,7 +105,7 @@ PROMPT
 PROMPT specify password for SYS as parameter 2:
 DEFINE password_sys        = &2
 PROMPT 
-PROMPT specify password for HR as parameter 3:
+PROMPT specify password for HRPLUS as parameter 3:
 DEFINE password_hr         = &3
 PROMPT
 PROMPT specify password for OE as parameter 4:
@@ -143,7 +143,7 @@ host mkdir &&logfile_dir
 
 CONNECT system/&&password_system@&&connect_string
 
-DROP USER hr CASCADE;
+DROP USER hrplus CASCADE;
 DROP USER oe CASCADE;
 DROP USER pm CASCADE;
 DROP USER ix CASCADE;
@@ -154,7 +154,7 @@ CONNECT system/&&password_system@&&connect_string
 
 SET SHOWMODE OFF
 
-@__SUB__CWD__/human_resources/hr_main.sql &&password_hr &&default_ts &&temp_ts &&password_sys &&logfile_dir &&connect_string
+@__SUB__CWD__/human_resources_plus/hr_main.sql &&password_hr &&default_ts &&temp_ts &&password_sys &&logfile_dir &&connect_string
 
 CONNECT system/&&password_system@&&connect_string
 SET SHOWMODE OFF

@@ -25,7 +25,7 @@ Rem OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 Rem WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 Rem
 Rem    NAME
-Rem      hr_idx.sql - Create indexes for HR schema
+Rem      hr_idx.sql - Create indexes for HRPLUS schema
 Rem
 Rem    DESCRIPTION
 Rem

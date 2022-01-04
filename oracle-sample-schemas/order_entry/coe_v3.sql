@@ -28,7 +28,7 @@ rem NAME
 rem   coe_v3.sql - create OE Common Schema
 rem
 rem DESCRIPTON
-rem   Creates database objects. The script assumes that the HR schema
+rem   Creates database objects. The script assumes that the HRPLUS schema
 rem   is present.
 rem
 rem NOTES
@@ -274,7 +274,7 @@ REM ===========================================================================
 ALTER TABLE orders 
 ADD ( CONSTRAINT orders_sales_rep_fk 
       FOREIGN KEY (sales_rep_id) 
-      REFERENCES hr.employees(employee_id)
+      REFERENCES hrplus.employees(employee_id)
       ON DELETE SET NULL
     ) ;
 
@@ -288,14 +288,14 @@ ADD ( CONSTRAINT orders_customer_id_fk
 ALTER TABLE warehouses 
 ADD ( CONSTRAINT warehouses_location_fk 
       FOREIGN KEY (location_id)
-      REFERENCES hr.locations(location_id)
+      REFERENCES hrplus.locations(location_id)
       ON DELETE SET NULL
     ) ;
 
 ALTER TABLE customers
 ADD ( CONSTRAINT customers_account_manager_fk
       FOREIGN KEY (account_mgr_id)
-      REFERENCES hr.employees(employee_id)
+      REFERENCES hrplus.employees(employee_id)
       ON DELETE SET NULL
     ) ;
 
@@ -336,17 +336,17 @@ REM ===========================================================================
 REM Create cross-schema synonyms
 REM ===========================================================================
 
-CREATE SYNONYM countries FOR hr.countries;
+CREATE SYNONYM countries FOR hrplus.countries;
 
-CREATE SYNONYM locations FOR hr.locations;
+CREATE SYNONYM locations FOR hrplus.locations;
 
-CREATE SYNONYM departments FOR hr.departments;
+CREATE SYNONYM departments FOR hrplus.departments;
 
-CREATE SYNONYM jobs FOR hr.jobs;
+CREATE SYNONYM jobs FOR hrplus.jobs;
 
-CREATE SYNONYM employees FOR hr.employees;
+CREATE SYNONYM employees FOR hrplus.employees;
 
-CREATE SYNONYM job_history FOR hr.job_history;
+CREATE SYNONYM job_history FOR hrplus.job_history;
 
 REM ===========================================================================
 REM Create sequences

@@ -25,7 +25,7 @@ Rem OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 Rem WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 Rem
 Rem    NAME
-Rem      hr_drop.sql - Drop objects from HR schema
+Rem      hr_drop.sql - Drop objects from HRPLUS schema
 Rem
 Rem    DESCRIPTION
 Rem
@@ -48,7 +48,7 @@ SET TAB OFF
 SET PAGESIZE 100
 SET ECHO OFF
 
-CONNECT hr/&password_HR@&connect_string
+CONNECT hrplus/&password_HR@&connect_string
 
 DROP PROCEDURE add_job_history;
 DROP PROCEDURE secure_dml;

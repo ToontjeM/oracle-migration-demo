@@ -31,7 +31,7 @@ documented in [Oracle Database Sample Schemas](https://www.oracle.com/pls/topic/
 
 The schemas are:
 
-- HR: *Human Resources*
+- HRPLUS: *Human Resources*
 - OE: *Order Entry*
 - PM: *Product Media*
 - IX: *Information Exchange*
@@ -49,7 +49,7 @@ the rest of the schemas at this time. Follow instructions in that schema's
 ## 2. Installing the Samples
 
 *CAUTION*: The first step in installing sample schemas is to drop 
-user accounts with the following names: HR, OE, PM, IX, SH and BI. 
+user accounts with the following names: HRPLUS, OE, PM, IX, SH and BI. 
 Do not proceed with the installation if you have schemas with any 
 of these names that you wish to keep.
 
@@ -124,7 +124,7 @@ sqlplus system/systempw@connect_string
 
 Use your current SYSTEM and SYS passwords, and also your actual
 default and temporary tablespace names.  The passwords for the new
-HR, OE, PM, IX, SH and BI users will be set to the values you
+HRPLUS, OE, PM, IX, SH and BI users will be set to the values you
 specify.
 
 *Reminder*: currently the CO schema will not be installed as part of this 
@@ -145,7 +145,7 @@ Review output in your log directory for errors.
 
 ## 3. Removing the Samples
 
-*CAUTION*: This will drop user accounts named HR, OE, PM, IX, SH and BI.
+*CAUTION*: This will drop user accounts named HRPLUS, OE, PM, IX, SH and BI.
 
 ### 3.1. Set the Oracle environment
 

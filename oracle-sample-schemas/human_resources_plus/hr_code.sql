@@ -25,7 +25,7 @@ Rem OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 Rem WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 Rem
 Rem    NAME
-Rem      hr_code.sql - Create procedural objects for HR schema
+Rem      hr_code.sql - Create procedural objects for HRPLUS schema
 Rem
 Rem    DESCRIPTION
 Rem      Create a statement level trigger on EMPLOYEES
@@ -45,6 +45,7 @@ Rem    hyeh        08/29/02 - hyeh_mv_comschema_to_rdbms
 Rem    ahunold     05/11/01 - disable
 Rem    ahunold     03/03/01 - HR simplification, REGIONS table
 Rem    ahunold     02/20/01 - Created
+Rem    mw2q        01/04/22 - HR renamed to HRPLUS
 Rem
 
 SET FEEDBACK 1
