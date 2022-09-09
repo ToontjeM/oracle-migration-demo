@@ -3,10 +3,11 @@
 CONTAINER="orademo"
 MSG="DATABASE IS READY TO USE!"
 
-while [ 1 ]; do
+while true; do
 	docker logs $CONTAINER | grep -m 1 -q "$MSG"
-	if [ $? -ne 0 ]; then
-		STATUS=`docker logs $CONTAINER | tail -n 1`
+	RC=$?
+	if [ $RC -ne 0 ]; then
+		STATUS=$(docker logs $CONTAINER | tail -n 1)
 		echo "Oracle database is not ready to use... $STATUS"
 		sleep 3
 	else
@@ -14,12 +15,12 @@ while [ 1 ]; do
 	fi
 done
 
-PW=`docker logs $CONTAINER | grep "ORACLE PASSWORD FOR SYS AND SYSTEM" | cut -d : -f 2 | xargs`
+PW=$(docker logs $CONTAINER | grep "ORACLE PASSWORD FOR SYS AND SYSTEM" | cut -d : -f 2 | xargs)
 
 CMD1="sqlplus system/${PW}@XEPDB1 @mksample $PW $PW hrpluspw oepw pmpw ixpw shpw bipw users temp /tmp/orademo/ localhost:1521/XEPDB1"
 CMD2="sqlplus system/${PW}@XEPDB1 @co_main $PW localhost:1521/XEPDB1 users temp"
-docker exec -w /usr/local/db-sample-schemas $CONTAINER $CMD1
-docker exec -w /usr/local/db-sample-schemas/customer_orders $CONTAINER $CMD2
+docker exec -w /usr/local/db-sample-schemas $CONTAINER "$CMD1"
+docker exec -w /usr/local/db-sample-schemas/customer_orders $CONTAINER "$CMD2"
 
 echo
 echo "These were the commands executed by this script:"
