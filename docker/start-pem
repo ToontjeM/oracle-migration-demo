@@ -3,5 +3,5 @@
 CONTAINER_EDB="edbdemo"
 docker exec -d -u enterprisedb $CONTAINER_EDB /usr/edb/as13/bin/pg_ctl \
                 -D /var/lib/edb/as13/data start
-docker exec -u root /usr/edb/pem/agent/bin/pemagent \
+docker exec -u root "$CONTAINER_EDB" /usr/edb/pem/agent/bin/pemagent \
 		-c /usr/edb/pem/agent/etc/agent.cfg
