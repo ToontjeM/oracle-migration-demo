@@ -10,7 +10,7 @@ following steps are all done from the command line:
    to be done once): `docker login container-registry.oracle.com`
 3. Pull the Docker images to use:
    1. Oracle Express Edition:
-      `docker pull container-registry.oracle.com/database/express:latest`
+      `docker pull container-registry.oracle.com/database/express:18.4.0-xe`
    2. Oracle Linux 7:
       `docker pull oraclelinux:7`
 4. Run the supplied script to build the Docker images for the demo:
