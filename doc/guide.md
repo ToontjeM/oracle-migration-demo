@@ -1,6 +1,6 @@
 # Demo Guide
 
-This is a recommended guide on how to perform a demonstrator of an Oracle
+This is a recommended guide on how to perform a demonstration of an Oracle
 database migration using the EDB migration tools.
 
 ## EDB Migration Portal
