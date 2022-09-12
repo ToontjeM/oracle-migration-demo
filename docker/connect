@@ -4,4 +4,4 @@ CONTAINER="orademo"
 PW=$(docker logs $CONTAINER | grep "ORACLE PASSWORD FOR SYS AND SYSTEM" | cut -d : -f 2 | xargs)
 CMD="sqlplus sys/${PW}@XEPDB1 as sysdba"
 echo "executing: $CMD"
-docker exec -it orademo "$CMD"
+docker exec -it orademo $CMD

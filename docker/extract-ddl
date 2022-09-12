@@ -9,7 +9,7 @@ MYUID=$(id -u "$USER")
 MYGID=$(id -g "$USER")
 
 CMD="sqlplus sys/${PW}@//${IP}:1521/XEPDB1 as sysdba @edb_ddl_extractor.sql"
-docker exec -it -u "${MYUID}:${MYGID}" -w /mnt $CONTAINER_EDB "$CMD"
+docker exec -it -u "${MYUID}:${MYGID}" -w /mnt $CONTAINER_EDB $CMD
 
 echo
 echo "This was the command executed by this script: $CMD"

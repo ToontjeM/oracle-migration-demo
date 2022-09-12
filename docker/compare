@@ -6,7 +6,7 @@ MYUID=$(id -u "$USER")
 MYGID=$(id -g "$USER")
 
 CMD="2ndq-livecompare my_project.ini"
-docker exec -it -u "${MYUID}:${MYGID}" -w /mnt $CONTAINER_EDB "$CMD"
+docker exec -it -u "${MYUID}:${MYGID}" -w /mnt $CONTAINER_EDB $CMD
 #docker exec -it -u root -w /mnt $CONTAINER_EDB $CMD
 
 echo
