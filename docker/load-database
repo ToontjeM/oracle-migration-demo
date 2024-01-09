@@ -8,8 +8,8 @@ while true; do
 	RC=$?
 	if [ $RC -ne 0 ]; then
 		STATUS=$(docker logs $CONTAINER | tail -n 1)
-		echo "Oracle database is not ready to use... $STATUS"
-		sleep 3
+		echo "Waiting for Oracle database to become available. This can take a wahile... $STATUS"
+		sleep 5
 	else
 		break
 	fi

@@ -3,6 +3,7 @@
 ## Demo prep
 
 1. [Create an EDB account](https://www.enterprisedb.com/accounts/register) for logging into the EDB [Migration Portal](https://migration.enterprisedb.com) if you don't already have access.
+2. Store repo credentaisl in `$HOME/.edbrepocred`
 2. Install software to provision systems for Oracle and EDB migration tools. Docker needs to be installed on your computer to prepare the demo with an Oracle instance and a virtual machine with all of the EDB migration tools. The following steps are all done from the command line:
 
 1. [Create a free account with Oracle](https://profile.oracle.com/myprofile/account/create-account.jspx).
