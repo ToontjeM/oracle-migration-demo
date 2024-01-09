@@ -1,13 +1,14 @@
 #!/bin/sh
 
-if [ $# -ne 2 ]; then
-	echo "usage: $(basename "$0") <EDB Repo Username> <EDB Repo Key>"
+if [ $# -ne 1 ]; then
+	echo "usage: $(basename "$0") <EDB token>"
 	exit 1
 fi
 
 IMAGE_EDB="edbdemo"
 IMAGE_ORACLE="orademo"
 
+docker ps -q --filter "name=orademo" | grep -q . && docker stop orademo && docker rm -fv orademo
+docker ps -q --filter "name=edbdemo" | grep -q . && docker stop edbdemo && docker rm -fv edbdemo
 docker build -t $IMAGE_ORACLE -f Dockerfile.oracle .
-docker build --build-arg EDBUSERNAME="$1" --build-arg EDBPASSWORD="$2" \
-		-t $IMAGE_EDB -f Dockerfile.edb .
+docker build --build-arg EDBTOKEN="$1" -t $IMAGE_EDB -f Dockerfile.edb .
