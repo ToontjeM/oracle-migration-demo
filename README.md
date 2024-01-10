@@ -2,90 +2,44 @@
 
 ## Demo prep
 
-1. [Create an EDB account](https://www.enterprisedb.com/accounts/register) for logging into the EDB [Migration Portal](https://migration.enterprisedb.com) if you don't already have access.
-2. Store repo credentaisl in `$HOME/.edbrepocred`
-2. Install software to provision systems for Oracle and EDB migration tools. Docker needs to be installed on your computer to prepare the demo with an Oracle instance and a virtual machine with all of the EDB migration tools. The following steps are all done from the command line:
+Create an EDB repo token and store this token in `$HOME/.edbtoken`
 
-1. [Create a free account with Oracle](https://profile.oracle.com/myprofile/account/create-account.jspx).
-2. Authenticate with Oracle's docker registry on the command line (only needs to be done once): 
+[Create a free account with Oracle](https://profile.oracle.com/myprofile/account/create-account.jspx).
 
-   `docker login container-registry.oracle.com`
-3. Pull the Docker images to use:
-   1. Oracle Express Edition:
-   
-   `docker pull container-registry.oracle.com/database/express:18.4.0-xe`
+Run script `00-provision.sh`. This script will:
+- Create a Big Animal instance according to `ba-config.yaml`
+- Create containers for the EDB tools and Oracle database
+- Load database schemas into Oracle database
+- Setup PEM
 
-   2. Oracle Linux 7: 
-   
-   `docker pull oraclelinux:7`
-
-4. Run the supplied script to build the Docker images for the demo: 
-
-`REPOUSER="$(awk -F':' '{print $1}' $HOME/.edbrepocred)"`
-
-`REPOPASS="$(awk -F':' '{print $2}' $HOME/.edbrepocred)"`
-
-`docker/build-image $REPOUSER $REPOPASS`
-
-5. Run the supplied script to create the Docker containers for the demo:
-
-   `docker/create-container`
-
-6. Create the Oracle sample schemas and load data with supplied script:
-
-   `docker/load-database`
-
-7. Configure PEM: 
-
-`docker/config-pem`
-
-8. Build a virtual machine with all of the EDB migration tools.
-9. Provision a BigAnimal cluster to be used as the migration destination.
-
-## Demo flow
-
-# Demo Guide
-
-This is a recommended guide on how to perform a demonstration of an Oracle
-database migration using the EDB migration tools.
-
-## EDB Migration Portal
-
-The EDB Migration Portal is used to analyze the Oracle schema and generate a
-compatible PostgreSQL Schema.
-
-### Preparation
-
-Passwords, IP addresses and connection information should be gathered from the
-the BigAnimal cluster before performing the demo, unless you wish to demo that
-aspect of BigAnimal.
-
-The IP address and Oracle sysdba password can be retrieved by running:
-`docker/info`
-
+The script will finish showing you access details similar to this:
 ```
-% docker/info
+--- Info ---
 EDB IP Address: 172.17.0.3
 EDB PEM URL: https://172.17.0.3/pem
-Oracle Database Password: c90c1b7f2eb71d9c
+Oracle Database Password: f19ee331c43e327a
 Oracle Database IP Address: 172.17.0.2
+┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ Clusters                                                                                                                                                                   │
+├──────────────┬────────────────────────┬──────────┬──────────────┬─────────┬───────────┬───────────────┬──────────────────────────────────┬────────────────────┬────────────┤
+│ ID           │ Name                   │ Provider │ Architecture │ Status  │ Region    │ Instance Type │ Postgres Details                 │ Maintenance Window │ FAReplicas │
+├──────────────┼────────────────────────┼──────────┼──────────────┼─────────┼───────────┼───────────────┼──────────────────────────────────┼────────────────────┼────────────┤
+│ p-78sv9i7qnb │ tons-biganimal-cluster │ AWS      │ single       │ Healthy │ EU West 1 │ m5.large      │ EDB Postgres Advanced Server v15 │ Disabled           │ N/A        │
+│              │                        │          │              │         │           │               │                                  │                    │            │
+└──────────────┴────────────────────────┴──────────┴──────────────┴─────────┴───────────┴───────────────┴──────────────────────────────────┴────────────────────┴────────────┘
+┌───────────────────────┬──────────────────────────────────────────────────────────────────────────────────────────┐
+│ Name                  │ Details                                                                                  │
+├───────────────────────┼──────────────────────────────────────────────────────────────────────────────────────────┤
+│ read-write-connection │ postgresql://edb_admin@p-78sv9i7qnb.private.8iufxybhqsx2cu1t.biganimal.io:5432/edb_admin │
+│ rw-service-name       │ N/A                                                                                      │
+│ read-only-connection  │ Not Supported                                                                            │
+│ ro-service-name       │ Not Supported                                                                            │
+└───────────────────────┴──────────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
-The connection information from the BigAnimal clusters:
-
-1. Click on `Clusters` in the left sidebar.
-2. Click on the lock shaped icon next to the cluster to use.
-3. Note the `Dbname`, `Host`, and `User` information.  The password will be
-   what was entered when creating the cluster.
-
-![](images/biganimal-connect.png)
-
-### Demonstration
-
+# Demo Flow
 1. Log into the EDB [Migration Portal](https://migration.enterprisedb.com).
-2. Download the EDB DDL Extractor.  A direct link to the DDL Extractor cannot
-   be provided at this time.  
-   ![](images/edb-migration-portal-ddl-extractor.png)
+2. Download the EDB DDL Extractor.
 3. Copy the DDL Extractor to the `docker/` subdirectory, which is mounted at
    `/mnt` within the **edbdemo** container.
 4. Run the EDB DDL Extractor using the provided help script:
@@ -121,53 +75,44 @@ Assessment may fail for such objects. It is suggested to extract all dependent o
 
 Extract dependent object from other schemas?(yes/no) (Default no / Ignored for all schemas option):yes
 
+Extract GRANT statements?(yes/no) (Default no):yes
+
 ```
 5. Note the name of the resulting DDL file.  Near the end of the DDL Extractor
-   out will be a message with the filename: `We have stored DDL(s) for
-   Schema(s)  HRPLUS to _gen_hrplus_ddls_211111213244.sql.`
+   out will be a message with the filename: We have stored DDL(s) for
+   Schema(s)  HRPLUS to ***_gen_hrplus_ddls_211111213244.sql***.
 6. Back in the Migration Portal, create a new project
    1. Enter a new project name.
    2. The Oracle version used in this kit is 18c.
+   3. The Postgres version is ***13***. Choosing a later version reduces the number of errors.
    3. The DDL file to choose is the one just created from the container:
       `_gen_hrplus_ddls_211111213244.sql`
    4. Click **Create & assess**.  
-      ![](images/edb-migration-portal-new-project.png)
 7. Demonstrate how to correct the reported errors.
    1. Click the right error to expand the schema details.  
-      ![](images/migration-portal-schemas.png)
    2. Expand the HRPLUS schema in the left sidebar and filter for failures by
 	  clicking on the exclamation point within the diamond.  
-      ![](images/migration-portal-schemas-objects-failed.png)
    3. Fix the *EMPLOYEES_BY_DEPARTMENT_VIEW* view.
-	  1. Rewrite the Oracle left outer join operator `(+)` as an explicit
-		 `LEFT OUTER JOIN` join type in the `FROM` clause.
-      2. Add the `AS` keyword to the `j.job_title position` expression in the
+      1. Add the `AS` keyword to the `j.job_title position` expression in the
 		 SELECT clause.  
       ![](images/migration-portal-schemas-employees_by_department_view.png)
    4. Fix the *ERROR_VIEW* view.
       1. Replace the `BITAND()` function with the bitwise AND `(&)` operator.  
-      ![](images/migration-portal-schemas-objects-failed.png)
+      ![](images/migration-portal-schemas-error_view.png)
    5. Fix the *PLANNED_COMMISSION_UPDATES_VIEW* view.
       1. Cast the second argument of the `ROUND()` function to an integer.  
       ![](images/migration-portal-schemas-planned_commision_udpates_view.png)
 8. Migrate the schema to BigAnimal.
    1. Click on `Migrate to ...`  
-      ![](images/edb-migration-portal-migrate-to.png)
-   2. Select `EDB Postgres Advanced Server on Cloud` and click `Next`.  
-      ![](images/edb-migration-portal-migrate-to-cloud.png)
+   2. Select `Online Migration`
    3. The `HRPLUS` should be selected, and the only schema listed.  Click `Next`.  
-      ![](images/edb-migration-portal-migrate-schema.png)
-   4. Select `BigAnimal` and click `Next`.  
-      ![](images/edb-migration-portal-migrate-to-cloud-biganimal.png)
-   5. If a BigAnimal cluster doesn't exist yet, create one now.  Then click
-      `Next`.
-   6. Enter the connection information to BigAnimal, click `Test Connection`,
+   4. Enter the connection information to BigAnimal, click `Test Connection`,
       then click `Next`.
-      1. Target Database: edb_admin
-      2. Host Name/Address: copied from above
-      3. Password: password that was entered when creating BigAnimal cluster  
+      1. Target Database: `Demo`
+      2. Host Name/Address: `p-78sv9i7qnb.private.8iufxybhqsx2cu1t.biganimal.io`
+      3. Password: `enterprisedb` 
       ![](images/edb-migration-portal-test-connection.png)
-   7. When migration is complete, you may click `Done`.  
+   5. When migration is complete, you may click `Done`.  
       ![](images/edb-migration-portal-migration-successful.png)
 
 ## Migration Took Kit
