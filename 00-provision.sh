@@ -29,4 +29,4 @@ docker/config-pem
 printf "${H}--- Info --- ${N}\n"
 docker/info
 biganimal cluster show -n tons-biganimal-cluster
-biganimal cluster show-connection -n tons-biganimal-cluster -p aws -r eu-west-1
+biganimal cluster show-connection -n tons-biganimal-cluster -p bah:aws -r eu-west-1

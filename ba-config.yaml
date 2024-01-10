@@ -4,7 +4,7 @@ clusterName: tons-biganimal-cluster           # <string:  cluster name>
 password: enterprisedb                # <string:  cluster password (must be at least 12 characters)>
 iamAuthentication: false                    # <bool:    Identity and Access Management, enabling IAM authentication will allow database users to authenticate to Postgres using your cloud provider's IAM(currently supported only for AWS). You can set up IAM authentication after your cluster is provisioned.>
 postgresType: epas                          # <string:  postgresType id, valid values ["postgres" | "epas" | "pgextended"]>
-postgresVersion: "15"                       # <string:  postgres version>
+postgresVersion: "16"                       # <string:  postgres version>
 region: eu-west-1                           # <string:  provider region id>
 instanceType: aws:m5.large                     # <string:  instance type id>
 volumeType: gp3             # <string:  volume type id>
