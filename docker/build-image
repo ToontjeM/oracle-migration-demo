@@ -10,5 +10,5 @@ IMAGE_ORACLE="orademo"
 
 docker ps -q --filter "name=orademo" | grep -q . && docker stop orademo && docker rm -fv orademo
 docker ps -q --filter "name=edbdemo" | grep -q . && docker stop edbdemo && docker rm -fv edbdemo
-docker build -t $IMAGE_ORACLE -f Dockerfile.oracle .
-docker build --build-arg EDBTOKEN="$1" -t $IMAGE_EDB -f Dockerfile.edb .
+docker build -t $IMAGE_ORACLE -f Dockerfile.oracle . &
+docker build --build-arg EDBTOKEN="$1" -t $IMAGE_EDB -f Dockerfile.edb . 

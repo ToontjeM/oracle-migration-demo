@@ -924,7 +924,7 @@ ConfigureDBServer()
 
 	# Stop database server
 	#ExecuteServiceCommand stop "${DB_UNIT_FILE} ${PEM_DB_SERVICE_FLAG}"
-	su - enterprisedb -c "/usr/edb/as13/bin/pg_ctl -D /var/lib/edb/as13/data stop -m fast"
+	su - enterprisedb -c "/usr/edb/as16/bin/pg_ctl -D /var/lib/edb/as16/data stop -m fast"
 
 	PEM_AGENT_ENTRY_EXISTS=`cat ${PG_HBA_FILE} | grep "^hostssl pem" | grep pem_agent | grep cert | wc -l`
 	if [ ${PEM_AGENT_ENTRY_EXISTS} -eq 0 ]; then
@@ -952,7 +952,7 @@ ConfigureDBServer()
 
 	# Start database server
 	#ExecuteServiceCommand start "${DB_UNIT_FILE} ${PEM_DB_SERVICE_FLAG}"
-	su - enterprisedb -c "/usr/edb/as13/bin/pg_ctl -D /var/lib/edb/as13/data start"
+	su - enterprisedb -c "/usr/edb/as16/bin/pg_ctl -D /var/lib/edb/as16/data start"
 }
 
 ConfigurePEMAgent()

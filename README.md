@@ -92,13 +92,6 @@ Extract GRANT statements?(yes/no) (Default no):yes
    1. Click the right error to expand the schema details.  
    2. Expand the HRPLUS schema in the left sidebar and filter for failures by
 	  clicking on the exclamation point within the diamond.  
-   3. Fix the *EMPLOYEES_BY_DEPARTMENT_VIEW* view.
-      1. Add the `AS` keyword to the `j.job_title position` expression in the
-		 SELECT clause.  
-      ![](images/migration-portal-schemas-employees_by_department_view.png)
-   4. Fix the *ERROR_VIEW* view.
-      1. Replace the `BITAND()` function with the bitwise AND `(&)` operator.  
-      ![](images/migration-portal-schemas-error_view.png)
    5. Fix the *PLANNED_COMMISSION_UPDATES_VIEW* view.
       1. Cast the second argument of the `ROUND()` function to an integer.  
       ![](images/migration-portal-schemas-planned_commision_udpates_view.png)

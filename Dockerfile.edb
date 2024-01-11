@@ -13,8 +13,10 @@ RUN yum -q makecache -y --disablerepo='*' --enablerepo='enterprisedb-enterprise'
 RUN yum -y install oracle-epel-release-el7 yum-plugin-config-manager
 
 # Install selected packages
-RUN yum -y install edb-migrationtoolkit edb-as16-edbplus edb-as16-server \
-		edb-pem emacs-nox ppas-xdb ppas-xdb-libs psmisc nano tar vim wget
+RUN yum -y install edb-migrationtoolkit edb-as16-edbplus edb-as16-server edb-as16-server-sslutils\
+		edb-pem emacs-nox ppas-xdb ppas-xdb-libs psmisc nano tar vim wget python-pip
+#RUN /usr/bin/python3 -m pip install --upgrade pip
+
 USER enterprisedb
 RUN /usr/edb/as16/bin/initdb -A trust --auth-host=trust --auth-local=trust \
 		--encoding=UTF-8 /var/lib/edb/as16/data
