@@ -104,37 +104,11 @@ Extract GRANT statements?(yes/no) (Default no):yes
       1. Target Database: `Demo`
       2. Host Name/Address: `p-78sv9i7qnb.private.8iufxybhqsx2cu1t.biganimal.io`
       3. Password: `enterprisedb` 
-      ![](images/edb-migration-portal-test-connection.png)
    5. When migration is complete, you may click `Done`.  
-      ![](images/edb-migration-portal-migration-successful.png)
 
-## Migration Took Kit
+## Migration Tool Kit
 
-The previously used IP Address and the Oracle user password of the Oracle
-docker instance is to be reused here, as well as the connection information for
-the BigAnimal cluster that was previously created.
-
-1. Edit the MTK properties file with by running the follow script (the script
-   opens the properties file in an editor on the virtual machine):
-   `docker/config-mtk`
-   1. Update `SRC_DB_URL`: jdbc:oracle:thin:@//172.17.0.2:1521/XEPDB1
-   2. Update `SRC_DB_USER`: system
-   3. Update `SRC_DB_PASSWORD`: c90c1b7f2eb71d9c
-   4. Update `TARGET_DB_URL`: jdbc:edb://p-c659g7jh5vfavr7tfs60.qsbilba3hlgp1vqr.biganimal.io:5432/edb_admin
-   5. Update `TARGET_DB_USER`: edb_admin
-   6. Update `TARGET_DB_PASSWORD`: <password used when creating BigAnimal
-      cluster>
-```
-SRC_DB_URL=jdbc:oracle:thin:@//172.17.0.2:1521/XEPDB1
-SRC_DB_USER=system
-SRC_DB_PASSWORD=c90c1b7f2eb71d9c
-
-TARGET_DB_URL=jdbc:edb://p-c659g7jh5vfavr7tfs60.qsbilba3hlgp1vqr.biganimal.io:5432/edb_admin
-TARGET_DB_USER=edb_admin
-TARGET_DB_PASSWORD=<password used when creating BigAnimal cluster>
-```
-3. Run MTK to migrate the data from the Oracle database to BigAnimal:
-   `docker/mtk-migration`  
+Run MTK to migrate the data from the Oracle database to BigAnimal: `docker/mtk-migration`  
 ```
 ******************** Migration Summary ********************
 Tables: 8 out of 8
