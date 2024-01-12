@@ -8,3 +8,5 @@ export CONTAINER_EDB="edbdemo"
 export IMAGE_EDB="edbdemo"
 export CONTAINER_ORA="orademo"
 export IMAGE_ORA="orademo"
+export DOCKERID=$(cat ~/.dockercreds | grep user | awk -F ': ' '{print $2}')
+export DOCKERPASS=$(cat ~/.dockercreds | grep password | awk -F ': ' '{print $2}')

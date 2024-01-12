@@ -11,6 +11,7 @@ printf "${H}--- Login to Oracle repo ---${N}\n"
 docker login container-registry.oracle.com
 
 printf "${H}--- Pull Oracle images --- ${N}\n"
+docker login -u $DOCKERID -p $DOCKERPASS
 docker pull container-registry.oracle.com/database/express:18.4.0-xe
 docker pull oraclelinux:7
 

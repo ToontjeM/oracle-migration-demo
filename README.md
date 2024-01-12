@@ -101,7 +101,7 @@ Extract GRANT statements?(yes/no) (Default no):yes
    3. The `HRPLUS` should be selected, and the only schema listed.  Click `Next`.  
    4. Enter the connection information to BigAnimal, click `Test Connection`,
       then click `Next`.
-      1. Target Database: `Demo`
+      1. Target Database: `edb_admin`
       2. Host Name/Address: `p-78sv9i7qnb.private.8iufxybhqsx2cu1t.biganimal.io`
       3. Password: `enterprisedb` 
    5. When migration is complete, you may click `Done`.  
