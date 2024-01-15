@@ -1,4 +1,4 @@
-#!/usr/local/bin/bash
+#!/bin/bash
 clear
 source ./env.sh
 
