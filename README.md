@@ -11,6 +11,8 @@ Run script `00-provision.sh`. This script will:
 - Create containers for the EDB tools and Oracle database
 - Load database schemas into Oracle database
 - Setup PEM
+- Setup the Migration toolkit
+- Setup LiveCompare
 
 The script will finish showing you access details similar to this:
 ```
@@ -210,8 +212,3 @@ Oracle Database Password: c90c1b7f2eb71d9c
 Oracle Database IP Address: 172.17.0.2
 ```
 
-# Contact Information
-
-* Please [report any
-  issues](https://github.com/EnterpriseDB/oracle-migration-demo/issues) online.
-  (Requires a GitHub account that is a member of the EDB Organization.)
