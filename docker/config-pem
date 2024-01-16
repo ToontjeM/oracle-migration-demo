@@ -2,13 +2,12 @@
 
 CONTAINER_EDB="edbdemo"
 
-docker exec -d -u enterprisedb $CONTAINER_EDB /usr/edb/as16/bin/pg_ctl \
-		-D /var/lib/edb/as16/data start
+docker exec -d -u enterprisedb $CONTAINER_EDB /usr/edb/as15/bin/pg_ctl -D /var/lib/edb/as15/data start
 docker exec -u root $CONTAINER_EDB /usr/edb/pem/bin/configure-pem-server.sh \
 		--pemagent-certificate-path ~/.pem/ \
-		--db-install-path /usr/edb/as16 \
+		--db-install-path /usr/edb/as15 \
 		--cidr-address 0.0.0.0/0 \
-		--db-unitfile edb-as-16 \
+		--db-unitfile edb-as-15 \
 		--port 5444 \
 		--superuser enterprisedb \
 		--superpassword enterprisedb \

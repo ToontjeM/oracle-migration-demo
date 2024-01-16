@@ -1,0 +1,40 @@
+FROM oraclelinux:7
+
+ARG EDBTOKEN
+
+# Install the repository configuration
+RUN yum -y install yum-utils pygpgme
+RUN rpm --import "https://downloads.enterprisedb.com/$EDBTOKEN/enterprise/gpg.E71EB0829F1EF813.key"
+RUN curl -1sLf "https://downloads.enterprisedb.com/$EDBTOKEN/enterprise/config.rpm.txt?distro=el&codename=7" > /tmp/enterprisedb-enterprise.repo
+RUN yum-config-manager --add-repo '/tmp/enterprisedb-enterprise.repo'
+RUN yum -q makecache -y --disablerepo='*' --enablerepo='enterprisedb-enterprise'
+
+# Install EPEL repository
+RUN yum -y install oracle-epel-release-el7 yum-plugin-config-manager
+
+# Install selected packages
+RUN yum -y install edb-migrationtoolkit edb-as16-edbplus edb-as16-server edb-as16-server-sslutils edb-jdbc edb-pem emacs-nox ppas-xdb ppas-xdb-libs psmisc nano tar vim wget python-pip
+
+USER enterprisedb
+RUN /usr/edb/as16/bin/initdb -A trust --auth-host=trust --auth-local=trust --encoding=UTF-8 /var/lib/edb/as16/data
+USER root
+COPY docker/pg_hba.conf /var/lib/edb/as16/data/pg_hba.conf
+
+# LiveCompare
+RUN yum -y install edb-livecompare
+RUN python3 -m pip install cx_Oracle --upgrade
+RUN python3 -m pip install requests[security]
+
+# Install Oracle client packages
+RUN yum -y install oracle-instantclient-release-el7 openjdk
+RUN yum -y install oracle-instantclient-jdbc oracle-instantclient-odbc oracle-instantclient-sqlplus
+
+# Install Oracle JDBC driver
+ARG OJDBC=ojdbc8-full
+RUN wget -L https://download.oracle.com/otn-pub/otn_software/jdbc/1815/${OJDBC}.tar.gz
+RUN tar xvf ${OJDBC}.tar.gz
+RUN (cd ${OJDBC} && mv *.jar /usr/lib/jvm/jre/lib/ext)
+
+USER root
+COPY docker/configure-pem-server.sh /usr/edb/pem/bin/configure-pem-server.sh
+CMD ["/usr/sbin/init"]

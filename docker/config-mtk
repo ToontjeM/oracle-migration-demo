@@ -8,5 +8,4 @@ elif [ "x$EDITOR" = "x" ]; then
 	EDITOR="nano"
 fi
 
-docker exec -it -u root $CONTAINER_EDB $EDITOR \
-		/usr/edb/migrationtoolkit/etc/toolkit.properties
+docker exec -it -u root $CONTAINER_EDB $EDITOR /usr/edb/migrationtoolkit/etc/toolkit.properties
