@@ -1,13 +1,12 @@
 #!/bin/sh
-
-CONTAINER_EDB="edbdemo"
-CONTAINER_ORA="orademo"
+source env.sh
 
 IPEDB=$(docker inspect $CONTAINER_EDB 2> /dev/null | grep "\<IPAddress\>" | head -n 1 | cut -d ":" -f 2 | tr -d ' ",')
 IPORA=$(docker inspect $CONTAINER_ORA 2> /dev/null | grep "\<IPAddress\>" | head -n 1 | cut -d ":" -f 2 | tr -d ' ",')
 PW=$(docker logs $CONTAINER_ORA 2> /dev/null | grep "ORACLE PASSWORD FOR SYS AND SYSTEM" | cut -d : -f 2 | xargs)
 
 echo "EDB IP Address: $IPEDB"
-echo "EDB PEM URL: https://${IPEDB}/pem"
-echo "Oracle Database Password: $PW"
 echo "Oracle Database IP Address: $IPORA"
+echo "Oracle Database Password: $PW"
+printf "${N}Access PL/SQL using ${H}docker/connect${N}\n"
+

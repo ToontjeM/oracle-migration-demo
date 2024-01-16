@@ -7,11 +7,8 @@ source ./env.sh
 #biganimal config set confirm_mode off
 #biganimal cluster create -F ba-config.yaml
 
-printf "${H}--- Login to Oracle repo ---${N}\n"
-docker login container-registry.oracle.com
-
 printf "${H}--- Pull Oracle images --- ${N}\n"
-docker login -u $DOCKERID -p $DOCKERPASS
+docker login container-registry.oracle.com -u $DOCKERID -p $DOCKERPASS
 docker pull container-registry.oracle.com/database/express:18.4.0-xe
 docker pull oraclelinux:9
 
@@ -42,6 +39,7 @@ docker exec -ti -u root $CONTAINER_EDB /bin/bash -c "sed -i 's/SRC_DB_PASSWORD=h
 docker exec -ti -u root $CONTAINER_EDB /bin/bash -c "sed -i 's/TARGET_DB_USER=enterprisedb/TARGET_DB_USER=edb_admin/' /usr/edb/migrationtoolkit/etc/toolkit.properties"
 docker exec -ti -u root $CONTAINER_EDB /bin/bash -c "sed -i 's/TARGET_DB_PASSWORD=edb/TARGET_DB_PASSWORD=enterprisedb/' /usr/edb/migrationtoolkit/etc/toolkit.properties"
 docker exec -ti -u root $CONTAINER_EDB /bin/bash -c "sed -i 's/toolkit.properties/toolkit.properties -Djavax.xml.parsers.DocumentBuilderFactory=com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl/' /usr/edb/migrationtoolkit/bin/runMTK.sh"
+
 printf "${H}--- Update Livecompare properties file --- ${N}\n"
 sed -E 's/host=/host='"$BAHOST"'/' docker/my_projectini.orig > docker/my_project.ini
 
