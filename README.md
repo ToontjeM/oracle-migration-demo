@@ -127,9 +127,6 @@ Invalid count: 0
 *************************************************************
 ```
 
-### Show data
-
-
 ## LiveCompare
 
 1. Edit the sample `docker/my_project.ini` file in the repository with correct
@@ -180,8 +177,20 @@ you may need to restart the Docker containers:
 
 * `docker start orademo`
 * `docker start edbdemo`
-* `docker/start-pem` - The **edbdemo** container needs to be started first,
-  then this script starts **httpd** and PostgreSQL processes.
+
+
+### Container information
+
+Run the following script to get a summary of each container's IP address,
+automatically generated Oracle database passwords, and other helpful URLs: `docker/info`
+
+```
+% docker/info
+EDB IP Address: 172.17.0.3
+EDB PEM URL: https://172.17.0.3/pem
+Oracle Database Password: c90c1b7f2eb71d9c
+Oracle Database IP Address: 172.17.0.2
+```
 
 ### Connect to Oracle Database
 
@@ -204,18 +213,6 @@ Version 18.4.0.0.0
 
 SQL>
 ```
-
-### Container information
-
-Run the following script to get a summary of each container's IP address,
-automatically generated Oracle database passwords, and other helpful URLs:
-`docker/info`
-
-```
-% docker/info
-EDB IP Address: 172.17.0.3
-EDB PEM URL: https://172.17.0.3/pem
-Oracle Database Password: c90c1b7f2eb71d9c
-Oracle Database IP Address: 172.17.0.2
-```
-
+### PEM
+PEM (Postgres Enterprise Manager) can be installed on the EDB container by running `docker/start-pem` 
+PEM can then be accessed by `https://localhost` or `https://localhost:8443/pem`
