@@ -3,9 +3,9 @@ clear
 source ./env.sh
 
 printf "${H}--- Creating Big Animal instance --- ${N}\n"
-#biganimal credential create --name “ton”
-#biganimal config set confirm_mode off
-#biganimal cluster create -F ba-config.yaml
+biganimal credential create --name “ton”
+biganimal config set confirm_mode off
+biganimal cluster create -F ba-config.yaml
 
 printf "${H}--- Pull Oracle images --- ${N}\n"
 docker login container-registry.oracle.com -u $DOCKERID -p $DOCKERPASS
