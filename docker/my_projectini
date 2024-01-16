@@ -1,7 +1,7 @@
 [General Settings]
 logical_replication_mode = off
 max_parallel_workers = 4
-oracle_user_tables_only = on
+oracle_user_tables_only = off
 oracle_ignore_unsortable = on
 column_intersection = on
 force_collate = C
@@ -16,7 +16,7 @@ user = system
 password = orapass
 
 [Postgres Connection]
-dsn = host=ba port=5432 dbname=edb_admin user=edb_admin sslmode=require password=enterprisedb
+dsn = host=biganimal port=5432 dbname=edb_admin user=edb_admin sslmode=require password=enterprisedb
 
 [Output Connection]
 technology = postgresql

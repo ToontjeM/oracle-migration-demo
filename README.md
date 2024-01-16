@@ -10,9 +10,9 @@ Run script `00-provision.sh`. This script will:
 - Create a Big Animal instance according to `ba-config.yaml`
 - Create containers for the EDB tools and Oracle database
 - Load database schemas into Oracle database
-- Setup PEM
 - Setup the Migration toolkit
 - Setup LiveCompare
+*** The script can take up to 15 minutes to complete! ***
 
 The script will finish showing you access details similar to this:
 ```
@@ -40,6 +40,10 @@ Oracle Database IP Address: 172.17.0.2
 ```
 
 # Demo Flow
+1. Explain the process
+   1. Explain infrastructure
+   2. Show data in Oracle
+   3. Explain steps
 1. Log into the EDB [Migration Portal](https://migration.enterprisedb.com).
 2. Download the EDB DDL Extractor.
 3. Copy the DDL Extractor to the `docker/` subdirectory, which is mounted at
@@ -122,6 +126,9 @@ Invalid count: 0
 
 *************************************************************
 ```
+
+### Show data
+
 
 ## LiveCompare
 

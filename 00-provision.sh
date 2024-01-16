@@ -2,7 +2,7 @@
 clear
 source ./env.sh
 
-#printf "${H}--- Creating Big Animal instance --- ${N}\n"
+printf "${H}--- Creating Big Animal instance --- ${N}\n"
 #biganimal credential create --name “ton”
 #biganimal config set confirm_mode off
 #biganimal cluster create -F ba-config.yaml
@@ -19,19 +19,16 @@ docker/build-image $EDBTOKEN
 printf "${H}--- Create docker containers --- ${N}\n"
 docker/create-container
 
+printf "${H}--- Starting Postgres --- ${N}\n"
+docker exec -d -u enterprisedb $CONTAINER_EDB /usr/edb/as15/bin/pg_ctl -D /var/lib/edb/as15/data start
+
 printf "${H}--- Load Oracle database schemas --- ${N}\n"
 docker/load-database 
 
-#printf "${H}--- Configure PEM --- ${N}\n"
-#docker/config-pem 
-
-printf "${H}--- Start Postgres --- ${N}\n"
-docker exec -d -u enterprisedb $CONTAINER_EDB /usr/edb/as15/bin/pg_ctl -D /var/lib/edb/as15/data start
-
 printf "${H}--- Update MTK properties file --- ${N}\n"
 ORACLEPASS=$(docker/info | grep Password | awk -F ': ' '{print $2}')
-BASHOST=""
 BAHOST=$(biganimal cluster show-connection --name tons-biganimal-cluster -p bah:aws -r eu-west-1 -o json | jq '.data.pgUri' |cut -f2 -d"@" | cut -f1 -d":");
+echo $BAHOST
 while [ -z "$BAHOST" ]; do
     echo "--- Wait for BA cluster to become ready ---"
     sleep 5; 
@@ -46,8 +43,9 @@ docker exec -ti -u root $CONTAINER_EDB /bin/bash -c "sed -i 's/TARGET_DB_PASSWOR
 docker exec -ti -u root $CONTAINER_EDB /bin/bash -c "sed -i 's/toolkit.properties/toolkit.properties -Djava.class.path=\/root\/jars -Djavax.xml.parsers.DocumentBuilderFactory=com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl/' /usr/edb/migrationtoolkit/bin/runMTK.sh"
 
 printf "${H}--- Update Livecompare properties file --- ${N}\n"
-sed -E 's/host=ba/host='"$BAHOST"'/' docker/my_projectini.orig > docker/my_project.ini
-sed -E 's/orapass/'"$ORACLEPASS"'/' docker/my_projectini.orig > docker/my_project.ini
+cp docker/my_projectini docker/my_project.ini
+gsed -i 's/biganimal/'"$BAHOST"'/' docker/my_project.ini
+gsed -i 's/orapass/'"$ORACLEPASS"'/' docker/my_project.ini
 
 printf "${H}--- Info --- ${N}\n"
 docker ps
