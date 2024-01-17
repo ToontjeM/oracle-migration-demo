@@ -42,8 +42,9 @@ Oracle Database IP Address: 172.17.0.2
 # Demo Flow
 1. Explain the process
    1. Explain infrastructure
-   2. Show data in Oracle
+   2. Show data in Oracle using `docker/show-oracle-data`
    3. Explain steps
+   4. Show data in Oracle using `docker/show-postgres-data`
 1. Log into the EDB [Migration Portal](https://migration.enterprisedb.com).
 2. Download the EDB DDL Extractor.
 3. Copy the DDL Extractor to the `docker/` subdirectory, which is mounted at
@@ -126,8 +127,9 @@ Invalid count: 0
 
 *************************************************************
 ```
+### Show Postgres data using `docker/show-postgres-data`
 
-## LiveCompare
+## LiveCompare (optional)
 
 1. Edit the sample `docker/my_project.ini` file in the repository with correct
    hostnames and password for BigAnimal and IP address for the Oracle
