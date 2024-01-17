@@ -9,3 +9,5 @@ docker ps -q --filter "name=edbdemo" | grep -q . && docker stop edbdemo && docke
 printf "${H}--- Stopping and removing Big Animal instance ---${N}\n"
 biganimal cluster delete -n tons-biganimal-cluster -p bah:aws -r eu-west-1
 biganimal credential delete ton -y
+
+rm docker/my_project.ini
