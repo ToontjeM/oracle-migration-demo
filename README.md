@@ -91,7 +91,7 @@ Extract GRANT statements?(yes/no) (Default no):yes
 6. Back in the Migration Portal, create a new project
    1. Enter a new project name.
    2. The Oracle version used in this kit is 18c.
-   3. The Postgres version is ***13***. Choosing a later version reduces the number of errors.
+   3. The Postgres version is ***15***. Choosing a later version reduces the number of errors.
    3. The DDL file to choose is the one just created from the container:
       `_gen_hrplus_ddls_211111213244.sql`
    4. Click **Create & assess**.  
