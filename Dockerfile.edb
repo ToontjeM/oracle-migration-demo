@@ -4,8 +4,8 @@ ARG EDBTOKEN
 
 # Install the repository configuration
 RUN dnf install yum-utils 
-RUN rpm --import 'https://downloads.enterprisedb.com/pdZe6pcnWIgmuqdR7v1L38rG6Z6wJEsY/enterprise/gpg.E71EB0829F1EF813.key'
-RUN curl -1sLf 'https://downloads.enterprisedb.com/pdZe6pcnWIgmuqdR7v1L38rG6Z6wJEsY/enterprise/config.rpm.txt?distro=el&codename=8' > /tmp/enterprise.repo
+RUN rpm --import 'https://downloads.enterprisedb.com//enterprise/gpg.E71EB0829F1EF813.key'
+RUN curl -1sLf 'https://downloads.enterprisedb.com//enterprise/config.rpm.txt?distro=el&codename=8' > /tmp/enterprise.repo
 RUN dnf config-manager --add-repo '/tmp/enterprise.repo'
 RUN dnf -q makecache -y --disablerepo='*' --enablerepo='enterprisedb-enterprise'
 
