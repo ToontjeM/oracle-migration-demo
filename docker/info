@@ -9,4 +9,5 @@ echo "EDB IP Address: $IPEDB"
 echo "Oracle Database IP Address: $IPORA"
 echo "Oracle Database Password: $PW"
 printf "${N}Access PL/SQL using ${H}docker/connect${N}\n"
-
+biganimal cluster show
+biganimal cluster show-connection --provider bah:aws --region eu-west-1 --name tons-biganimal-cluster
