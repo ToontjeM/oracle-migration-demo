@@ -10,10 +10,12 @@ RUN dnf config-manager --add-repo '/tmp/enterprise.repo'
 RUN dnf -q makecache -y --disablerepo='*' --enablerepo='enterprisedb-enterprise'
 
 # Install EPEL repository
-RUN dnf -y install oracle-epel-release-el8
+#RUN dnf -y install oracle-epel-release-el8
+RUN dnf -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+RUN dnf -y install edb-jdbc
 
 # Install selected packages
-RUN dnf -y install edb-migrationtoolkit edb-edbplus edb-as15-server edb-as15-server-sslutils edb-jdbc edb-pem emacs-nox ppas-xdb ppas-xdb-libs psmisc nano tar vim wget python3-pip
+RUN dnf -y install edb-migrationtoolkit edb-edbplus edb-as15-server edb-as15-server-sslutils emacs-nox ppas-xdb ppas-xdb-libs psmisc nano tar vim wget python3-pip
 
 USER enterprisedb
 RUN /usr/edb/as15/bin/initdb -A trust --auth-host=trust --auth-local=trust --encoding=UTF-8 /var/lib/edb/as15/data
@@ -34,7 +36,9 @@ ARG OJDBC=ojdbc8-full
 RUN wget -L https://download.oracle.com/otn-pub/otn_software/jdbc/1815/${OJDBC}.tar.gz
 RUN tar xvf ${OJDBC}.tar.gz
 RUN (cd ${OJDBC} && mv *.jar /usr/edb/migrationtoolkit/lib/)
+RUN rm /usr/edb/migrationtoolkit/lib/ojdbc8.jar
+RUN cp /usr/lib/oracle/21/client64/lib/ojdbc8.jar /usr/edb/migrationtoolkit/lib/ojdbc8.jar
 
-USER root
-COPY docker/configure-pem-server.sh /usr/edb/pem/bin/configure-pem-server.sh
+#USER root
+#COPY docker/configure-pem-server.sh /usr/edb/pem/bin/configure-pem-server.sh
 CMD ["/usr/sbin/init"]

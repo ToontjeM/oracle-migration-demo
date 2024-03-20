@@ -1,0 +1,8 @@
+#!/bin/sh
+
+source env.sh
+
+BAHOST=$(biganimal cluster show-connection --name tons-biganimal-cluster -p bah:aws -r eu-west-1 -o json | jq '.data.pgUri' |cut -f2 -d"@" | cut -f1 -d":");
+
+psql "postgres://edb_admin:enterprisedb@$BAHOST:5432/edb_admin?sslmode=require" -c 'select first_name, last_name from hrplus.employees limit 10;'
+psql "postgres://edb_admin:enterprisedb@$BAHOST:5432/edb_admin?sslmode=require" -c 'select count(*) from hrplus.employees;'

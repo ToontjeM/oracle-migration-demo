@@ -47,10 +47,8 @@ Oracle Database IP Address: 172.17.0.2
    4. Show data in Oracle using `docker/show-postgres-data`
 1. Log into the EDB [Migration Portal](https://migration.enterprisedb.com).
 2. Download the EDB DDL Extractor.
-3. Copy the DDL Extractor to the `docker/` subdirectory, which is mounted at
-   `/mnt` within the **edbdemo** container.
-4. Run the EDB DDL Extractor using the provided help script:
-   `docker/extract-ddl`
+3. Copy the DDL Extractor to the `docker/` subdirectory, which is mounted at `/mnt` within the **edbdemo** container.
+4. Run the EDB DDL Extractor using the provided help script: `docker/extract-ddl`
    1. Press `RETURN` at the first prompt to continue:  
       `Press RETURN to continue ...`  
    2. Enter `HRPLUS` to only extract the `HRPLUS` database (multiple databases are

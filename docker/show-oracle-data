@@ -1,0 +1,10 @@
+#!/bin/sh
+
+source env.sh
+
+PW=$(docker logs $CONTAINER_ORA | grep "ORACLE PASSWORD FOR SYS AND SYSTEM" | cut -d : -f 2 | xargs)
+
+docker exec -i $CONTAINER_ORA sqlplus system/$PW@localhost:1521/XEPDB1 <<EOF
+select first_name, last_name  from hrplus.employees where rownum<= 10;
+select count(*) from hrplus.employees;
+EOF
