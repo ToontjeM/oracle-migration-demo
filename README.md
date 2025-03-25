@@ -1,5 +1,37 @@
 # Oracle Migration Demo
 
+## Prerequisites
+VirtualBox
+vagrant
+vagrant plugins
+- vagrant-env
+- vagrant-hosts
+- vagrant-reload
+- vagrant-vbguest
+
+## Demo prep
+git clone https://github.com/oracle/vagrant-projects.git
+cd OracleDatabase/18.4.0-XE
+Modify ORACLE_PW in .env
+vagrant up
+
+After 15 minutes you will be able to connect using `vagrant ssh`
+
+Load schemas
+
+Install EPAS
+
+Install Migration toolkit
+
+Install LiveCompare
+
+
+
+
+
+
+# Oracle Migration Demo
+
 ## Demo prep
 
 Create an EDB repo token and store this token in `$HOME/.edbtoken`
